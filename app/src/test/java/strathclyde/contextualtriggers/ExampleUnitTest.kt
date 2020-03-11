@@ -1,4 +1,4 @@
-package strath.contextualtriggers
+package strathclyde.contextualtriggers
 
 import org.junit.Test
 
