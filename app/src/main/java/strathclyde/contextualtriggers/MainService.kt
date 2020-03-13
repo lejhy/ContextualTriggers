@@ -6,10 +6,20 @@ import android.app.Service
 import android.content.Intent
 import android.os.IBinder
 import android.util.Log
-import strathclyde.contextualtriggers.context.WalkingContext
-import strathclyde.contextualtriggers.trigger.WalkingTrigger
+import kotlinx.coroutines.*
+import strathclyde.contextualtriggers.context.*
+import strathclyde.contextualtriggers.database.MainDatabase
+import strathclyde.contextualtriggers.database.TriggerWithContextConstraintsDao
+import strathclyde.contextualtriggers.trigger.Trigger
 
 class MainService : Service() {
+
+    private val contexts: MutableList<Context> = mutableListOf()
+    private val triggers: MutableList<Trigger> = mutableListOf()
+
+    private var job = Job()
+    private val scope = CoroutineScope(Dispatchers.Main + job)
+    private lateinit var triggerWithContextConstraintsDao: TriggerWithContextConstraintsDao
 
     override fun onCreate() {
         super.onCreate()
@@ -28,18 +38,43 @@ class MainService : Service() {
 
         startForeground(R.integer.contextualTriggersNotificationId, notification)
 
-        //THE REST OF FUNCTION IS JUST FOR TESTING
-        val context = WalkingContext(application)
-        val trigger = WalkingTrigger(application)
-        context.register(trigger)
+        triggerWithContextConstraintsDao = MainDatabase.getInstance(this).triggerWithContextConstraintsDao
+        initializeContexts()
+        initializeTriggers()
     }
 
     override fun onDestroy() {
-        super.onCreate()
+        super.onDestroy()
+        job.cancel()
         Log.i("MainService", "onDestroy called")
     }
 
     override fun onBind(intent: Intent?): IBinder? {
         return null;
+    }
+
+    private fun initializeContexts() {
+        contexts.addAll(
+            listOf(
+                InVehicleContext(application),
+                OnBicycleContext(application),
+                OnFootContext(application),
+                RunningContext(application),
+                StillContext(application),
+                WalkingContext(application)
+            )
+        )
+    }
+
+    private fun initializeTriggers() {
+        scope.launch {
+            val triggerWithContextConstraints = withContext(Dispatchers.IO) {
+                triggerWithContextConstraintsDao.getAll()
+            }
+            triggerWithContextConstraints.forEach {
+                val trigger = Trigger(application, contexts, it)
+                triggers.add(trigger)
+            }
+        }
     }
 }

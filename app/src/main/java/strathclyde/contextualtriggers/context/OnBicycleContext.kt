@@ -3,11 +3,11 @@ package strathclyde.contextualtriggers.context
 import android.app.Application
 import com.google.android.gms.awareness.fence.DetectedActivityFence
 
-class WalkingContext(
+class OnBicycleContext(
     application: Application
 ): FenceContext(
     application,
-    DetectedActivityFence.during(DetectedActivityFence.WALKING),
-    "WALKING CONTEXT FENCE",
-    "WALKING CONTEXT ACTION"
+    DetectedActivityFence.during(DetectedActivityFence.ON_BICYCLE),
+    "ON BICYCLE CONTEXT FENCE",
+    "ON BICYCLE CONTEXT ACTION"
 )
