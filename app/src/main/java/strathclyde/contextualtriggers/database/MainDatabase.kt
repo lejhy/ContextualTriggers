@@ -51,6 +51,14 @@ abstract class MainDatabase : RoomDatabase(){
                 db.execSQL("INSERT INTO 'ContextConstraint' VALUES (NULL, 'STILL', 1, 1, 5)")
                 db.execSQL("INSERT INTO 'Trigger' VALUES (NULL, 'Walking', 'You are walking...', 'NOTIFICATION_IMPORTANT', 1)")
                 db.execSQL("INSERT INTO 'ContextConstraint' VALUES (NULL, 'WALKING', 1, 1, 6)")
+                db.execSQL("INSERT INTO 'Trigger' VALUES (NULL, 'Sunny', 'The weather is sunny...', 'NOTIFICATION_IMPORTANT', 1)")
+                db.execSQL("INSERT INTO 'ContextConstraint' VALUES (NULL, 'SUNNY', 1, 1, 7)")
+                db.execSQL("INSERT INTO 'Trigger' VALUES (NULL, 'Haze', 'There is haze outside...', 'NOTIFICATION_IMPORTANT', 1)")
+                db.execSQL("INSERT INTO 'ContextConstraint' VALUES (NULL, 'HAZE', 1, 1, 8)")
+                db.execSQL("INSERT INTO 'Trigger' VALUES (NULL, 'Rain', 'Its raining outside...', 'NOTIFICATION_IMPORTANT', 1)")
+                db.execSQL("INSERT INTO 'ContextConstraint' VALUES (NULL, 'RAIN', 1, 1, 9)")
+                db.execSQL("INSERT INTO 'Trigger' VALUES (NULL, 'Warm outside', 'Its warm outside...', 'NOTIFICATION_IMPORTANT', 1)")
+                db.execSQL("INSERT INTO 'ContextConstraint' VALUES (NULL, 'TEMPERATURE', 0, 20, 10)")
             }
         }
     }

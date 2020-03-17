@@ -9,15 +9,16 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 
-class MainActivity : AppCompatActivity(){
+class MainActivity : AppCompatActivity() {
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         createNotificationChannel(application)
 
         application.startService(Intent(application, MainService::class.java))
-        Toast.makeText(this, "Contextual triggers are running", Toast.LENGTH_LONG).show();
-        finish();
+        Toast.makeText(this, "Contextual triggers are running", Toast.LENGTH_LONG).show()
+        finish()
     }
 
     private fun createNotificationChannel(application: Application) {
@@ -27,7 +28,9 @@ class MainActivity : AppCompatActivity(){
             application.getString(R.string.channel_name),
             importance
         )
-        val notificationManager: NotificationManager = application.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        val notificationManager: NotificationManager =
+            application.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         notificationManager.createNotificationChannel(channel)
     }
+
 }
