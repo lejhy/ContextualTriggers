@@ -1,7 +1,7 @@
 import android.app.Application
-import strathclyde.contextualtriggers.context.LocationBasedContext
+import strathclyde.contextualtriggers.context.location.LocationBasedContext
 
-class inHouseContext(
+class atHouseContext(
     application: Application
 ): LocationBasedContext(
     application,

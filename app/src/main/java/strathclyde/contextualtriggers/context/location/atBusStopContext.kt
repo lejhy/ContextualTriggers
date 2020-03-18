@@ -1,5 +1,5 @@
 import android.app.Application
-import strathclyde.contextualtriggers.context.LocationBasedContext
+import strathclyde.contextualtriggers.context.location.LocationBasedContext
 
 class atBusStopContext(
     application: Application

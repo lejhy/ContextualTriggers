@@ -1,4 +1,4 @@
-package strathclyde.contextualtriggers.context;
+package strathclyde.contextualtriggers.context.location;
 
 import android.app.Application
 import android.content.BroadcastReceiver
@@ -9,9 +9,8 @@ import android.content.pm.PackageManager
 import android.location.Location
 import android.location.LocationManager
 import android.location.LocationManager.GPS_PROVIDER
-import android.os.Build
 import androidx.core.content.ContextCompat
-import androidx.core.content.ContextCompat.getSystemService
+import strathclyde.contextualtriggers.context.Context
 
 
 abstract class LocationBasedContext (
@@ -24,8 +23,8 @@ abstract class LocationBasedContext (
     private val receiver = object : BroadcastReceiver() {
         override fun onReceive(context: android.content.Context, intent: Intent?) {
             intent?.let {
-                var longitude: Double = 0.0
-                var latitude: Double = 0.0
+                var longitude = 0.0
+                var latitude = 0.0
                 if (
                     ContextCompat.checkSelfPermission( context, android.Manifest.permission.ACCESS_FINE_LOCATION ) == PackageManager.PERMISSION_GRANTED &&
                     ContextCompat.checkSelfPermission( context, android.Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED
