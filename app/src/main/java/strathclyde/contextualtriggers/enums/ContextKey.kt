@@ -1,7 +1,7 @@
 package strathclyde.contextualtriggers.enums
 
-import atBusStopContext
-import atHouseContext
+import strathclyde.contextualtriggers.context.location.AtBusStopContext
+import strathclyde.contextualtriggers.context.location.AtHouseContext
 import strathclyde.contextualtriggers.context.*
 import strathclyde.contextualtriggers.context.battery.BatteryLevelContext
 import strathclyde.contextualtriggers.context.weather.HazeContext
@@ -25,8 +25,8 @@ enum class ContextKey {
             RAIN -> RainContext::class.java
             TEMPERATURE -> TemperatureContext::class.java
             BATTERY_LEVEL -> BatteryLevelContext::class.java
-            AT_BUS_STOP -> atBusStopContext::class.java
-            AT_HOME -> atHouseContext::class.java
+            AT_BUS_STOP -> AtBusStopContext::class.java
+            AT_HOME -> AtHouseContext::class.java
         }
     }
 }

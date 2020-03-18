@@ -13,9 +13,8 @@ import androidx.core.content.ContextCompat
 import strathclyde.contextualtriggers.context.Context
 
 
-abstract class LocationBasedContext (
-    private val application: Application,
-    private val actionKey: String
+abstract class LocationBasedContext(
+    private val application: Application
 ): Context() {
 
     abstract fun useLocation(lat: Double, long: Double) : Int
