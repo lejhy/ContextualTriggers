@@ -1,13 +1,14 @@
 package strathclyde.contextualtriggers.enums
 
 import strathclyde.contextualtriggers.context.*
-import strathclyde.contextualtriggers.context.weatherContext.HazeContext
-import strathclyde.contextualtriggers.context.weatherContext.RainContext
-import strathclyde.contextualtriggers.context.weatherContext.SunnyContext
-import strathclyde.contextualtriggers.context.weatherContext.TemperatureContext
+import strathclyde.contextualtriggers.context.battery.BatteryLevelContext
+import strathclyde.contextualtriggers.context.weather.HazeContext
+import strathclyde.contextualtriggers.context.weather.RainContext
+import strathclyde.contextualtriggers.context.weather.SunnyContext
+import strathclyde.contextualtriggers.context.weather.TemperatureContext
 
 enum class ContextKey {
-    IN_VEHICLE, ON_BICYCLE, ON_FOOT, RUNNING, STILL, WALKING, SUNNY, HAZE, RAIN, TEMPERATURE;
+    IN_VEHICLE, ON_BICYCLE, ON_FOOT, RUNNING, STILL, WALKING, SUNNY, HAZE, RAIN, TEMPERATURE, BATTERY_LEVEL;
 
     fun resolveClass(): Class<out Context> {
         return when (this) {
@@ -21,6 +22,7 @@ enum class ContextKey {
             HAZE -> HazeContext::class.java
             RAIN -> RainContext::class.java
             TEMPERATURE -> TemperatureContext::class.java
+            BATTERY_LEVEL -> BatteryLevelContext::class.java
         }
     }
 }

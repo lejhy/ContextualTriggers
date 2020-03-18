@@ -1,4 +1,4 @@
-package strathclyde.contextualtriggers.context.weatherContext
+package strathclyde.contextualtriggers.context.weather
 
 import android.app.Application
 import android.content.BroadcastReceiver
@@ -17,7 +17,6 @@ abstract class WeatherDescriptionContext(
 
     private val receiver = object : BroadcastReceiver() {
         override fun onReceive(context: android.content.Context, intent: Intent?) {
-//            Log.d("Got Weather ", intent?.getStringExtra("result")!!)
             val result = intent?.getStringExtra("result")
             val jsonObj = JSONObject(result)
             val weather = jsonObj.getJSONArray("weather").getJSONObject(0)
@@ -27,6 +26,7 @@ abstract class WeatherDescriptionContext(
             } else {
                 update(0)
             }
+            Log.d("WEATHER DESCRIPTION CONTEXT", "Updated")
         }
     }
 

@@ -1,10 +1,10 @@
-package strathclyde.contextualtriggers.context.weatherContext
+package strathclyde.contextualtriggers.context.weather
 
 import android.app.Application
 
-class HazeContext(
+class SunnyContext(
     application: Application
 ) : WeatherDescriptionContext(
     application,
-    "HAZE"
+    "SUNNY"
 )

@@ -9,10 +9,11 @@ import android.util.Log
 import kotlinx.coroutines.*
 import strathclyde.contextualtriggers.broadcasters.WeatherBroadcast
 import strathclyde.contextualtriggers.context.*
-import strathclyde.contextualtriggers.context.weatherContext.HazeContext
-import strathclyde.contextualtriggers.context.weatherContext.RainContext
-import strathclyde.contextualtriggers.context.weatherContext.SunnyContext
-import strathclyde.contextualtriggers.context.weatherContext.TemperatureContext
+import strathclyde.contextualtriggers.context.battery.BatteryLevelContext
+import strathclyde.contextualtriggers.context.weather.HazeContext
+import strathclyde.contextualtriggers.context.weather.RainContext
+import strathclyde.contextualtriggers.context.weather.SunnyContext
+import strathclyde.contextualtriggers.context.weather.TemperatureContext
 import strathclyde.contextualtriggers.database.MainDatabase
 import strathclyde.contextualtriggers.database.TriggerWithContextConstraintsDao
 import strathclyde.contextualtriggers.trigger.Trigger
@@ -72,7 +73,8 @@ class MainService : Service() {
                 SunnyContext(application),
                 HazeContext(application),
                 RainContext(application),
-                TemperatureContext(application)
+                TemperatureContext(application),
+                BatteryLevelContext(application)
             )
         )
     }

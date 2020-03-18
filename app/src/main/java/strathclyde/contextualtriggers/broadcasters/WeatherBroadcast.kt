@@ -24,7 +24,7 @@ class WeatherBroadcast(
         client.lastLocation.addOnSuccessListener {
             mainHandler.removeCallbacks(updateWeather)
             lat = it.latitude
-            lon = it.longitude
+            lon = it.longitude //TODO Deal with what if no Location
             updateWeather.run()
         }
     }
@@ -36,7 +36,7 @@ class WeatherBroadcast(
     private val updateWeather = object : Runnable {
         override fun run() {
             weatherTask().execute()
-            mainHandler.postDelayed(this, 10000)
+            mainHandler.postDelayed(this, 60000)
         }
     }
 
