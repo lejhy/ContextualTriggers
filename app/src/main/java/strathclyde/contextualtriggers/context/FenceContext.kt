@@ -22,6 +22,7 @@ abstract class FenceContext(
     private val receiver = object : BroadcastReceiver() {
         override fun onReceive(context: android.content.Context, intent: Intent?) {
             val fenceState = FenceState.extract(intent)
+
             if (TextUtils.equals(fenceState.fenceKey, fenceKey)) {
                 val fenceValue = when (fenceState.currentState) {
                     FenceState.FALSE -> 0
@@ -29,6 +30,7 @@ abstract class FenceContext(
                     else -> -1
                 }
                 update(fenceValue)
+                Log.d("FENCE CONTEXT", "Updated")
             }
         }
     }

@@ -7,7 +7,13 @@ import android.content.Intent
 import android.os.IBinder
 import android.util.Log
 import kotlinx.coroutines.*
+import strathclyde.contextualtriggers.broadcasters.WeatherBroadcast
 import strathclyde.contextualtriggers.context.*
+import strathclyde.contextualtriggers.context.battery.BatteryLevelContext
+import strathclyde.contextualtriggers.context.weather.HazeContext
+import strathclyde.contextualtriggers.context.weather.RainContext
+import strathclyde.contextualtriggers.context.weather.SunnyContext
+import strathclyde.contextualtriggers.context.weather.TemperatureContext
 import strathclyde.contextualtriggers.database.MainDatabase
 import strathclyde.contextualtriggers.database.TriggerWithContextConstraintsDao
 import strathclyde.contextualtriggers.trigger.Trigger
@@ -25,20 +31,22 @@ class MainService : Service() {
         super.onCreate()
         Log.i("MainService", "onCreate called")
         val pendingIntent: PendingIntent =
-                Intent(this, MainActivity::class.java).let { notificationIntent ->
-                    PendingIntent.getActivity(this, 0, notificationIntent, 0)
-                }
+            Intent(this, MainActivity::class.java).let { notificationIntent ->
+                PendingIntent.getActivity(this, 0, notificationIntent, 0)
+            }
 
         val notification: Notification = Notification.Builder(this, getString(R.string.channel_id))
-                .setContentTitle(getString(R.string.contextualTriggers))
-                .setContentText(getString(R.string.ContextualTriggersAreNowRunning))
-                .setContentIntent(pendingIntent)
-                .setSmallIcon(R.drawable.ic_notification_important_black_24dp)
-                .build()
+            .setContentTitle(getString(R.string.contextualTriggers))
+            .setContentText(getString(R.string.ContextualTriggersAreNowRunning))
+            .setContentIntent(pendingIntent)
+            .setSmallIcon(R.drawable.ic_notification_important_black_24dp)
+            .build()
 
         startForeground(R.integer.contextualTriggersNotificationId, notification)
+        WeatherBroadcast(application).also { broadcast -> broadcast.start() } //TODO Make it context aware
 
-        triggerWithContextConstraintsDao = MainDatabase.getInstance(this).triggerWithContextConstraintsDao
+        triggerWithContextConstraintsDao =
+            MainDatabase.getInstance(this).triggerWithContextConstraintsDao
         initializeContexts()
         initializeTriggers()
     }
@@ -50,7 +58,7 @@ class MainService : Service() {
     }
 
     override fun onBind(intent: Intent?): IBinder? {
-        return null;
+        return null
     }
 
     private fun initializeContexts() {
@@ -61,7 +69,12 @@ class MainService : Service() {
                 OnFootContext(application),
                 RunningContext(application),
                 StillContext(application),
-                WalkingContext(application)
+                WalkingContext(application),
+                SunnyContext(application),
+                HazeContext(application),
+                RainContext(application),
+                TemperatureContext(application),
+                BatteryLevelContext(application)
             )
         )
     }

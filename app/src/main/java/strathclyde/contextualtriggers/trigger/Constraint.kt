@@ -9,7 +9,7 @@ class Constraint(
         get() = _state
 
     fun evaluate(value: Int): Boolean {
-        _state = lessThanOrEqualTo <= value && value >= greaterThanOrEqualTo
+        _state = (value in greaterThanOrEqualTo..lessThanOrEqualTo)
         return _state
     }
 }
