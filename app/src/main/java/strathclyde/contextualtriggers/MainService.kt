@@ -10,6 +10,7 @@ import kotlinx.coroutines.*
 import strathclyde.contextualtriggers.broadcasters.WeatherBroadcast
 import strathclyde.contextualtriggers.context.*
 import strathclyde.contextualtriggers.context.battery.BatteryLevelContext
+import strathclyde.contextualtriggers.context.headphones.HeadphonesContext
 import strathclyde.contextualtriggers.context.weather.HazeContext
 import strathclyde.contextualtriggers.context.weather.RainContext
 import strathclyde.contextualtriggers.context.weather.SunnyContext
@@ -74,7 +75,8 @@ class MainService : Service() {
                 HazeContext(application),
                 RainContext(application),
                 TemperatureContext(application),
-                BatteryLevelContext(application)
+                BatteryLevelContext(application),
+                HeadphonesContext(application)
             )
         )
     }
