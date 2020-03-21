@@ -12,12 +12,13 @@ import androidx.sqlite.db.SupportSQLiteDatabase
     exportSchema = false
 )
 
-abstract class MainDatabase : RoomDatabase(){
+abstract class MainDatabase : RoomDatabase() {
     abstract val triggerWithContextConstraintsDao: TriggerWithContextConstraintsDao
 
     companion object {
         @Volatile
         private var INSTANCE: MainDatabase? = null
+
         fun getInstance(context: Context): MainDatabase {
             synchronized(this) {
                 var instance = INSTANCE
@@ -63,10 +64,32 @@ abstract class MainDatabase : RoomDatabase(){
                 db.execSQL("INSERT INTO 'ContextConstraint' VALUES (NULL, 'BATTERY_LEVEL', 80, 100, 11)")
                 db.execSQL("INSERT INTO 'Trigger' VALUES (NULL, 'Headphones', 'Headphones are plugged in...', 'NOTIFICATION_IMPORTANT', 1)")
                 db.execSQL("INSERT INTO 'ContextConstraint' VALUES (NULL, 'HEADPHONES', 1, 1, 12)")
+                db.execSQL("Insert Into 'Trigger' VALUES (NULL, 'Day', 'Day changed', 'NOTIFICATION_IMPORTANT', 1)")
+                db.execSQL("Insert Into 'ContextConstraint' VALUES (NULL, 'TIME',${100},${711},13)")
+                db.execSQL("Insert Into 'Trigger' VALUES (NULL, 'Weekend', 'Day changed to a saturday or sunday', 'NOTIFICATION_IMPORTANT', 1)")
+                db.execSQL("Insert Into 'ContextConstraint' VALUES (NULL, 'TIME',${600},${711},14)")
+                db.execSQL("Insert Into 'Trigger' VALUES(NULL, 'Hour', 'Hour changed', 'NOTIFICATION_IMPORTANT', 1)")
+                db.execSQL("INSERT INTO 'ContextConstraint' VALUES(NULL, 'TIME',10,11,15)")
+                db.execSQL("INSERT INTO 'ContextConstraint' VALUES(NULL, 'TIME',110,111,15)")
+                db.execSQL("INSERT INTO 'ContextConstraint' VALUES(NULL, 'TIME',210,211,15)")
+                db.execSQL("INSERT INTO 'ContextConstraint' VALUES(NULL, 'TIME',310,311,15)")
+                db.execSQL("INSERT INTO 'ContextConstraint' VALUES(NULL, 'TIME',410,411,15)")
+                db.execSQL("INSERT INTO 'ContextConstraint' VALUES(NULL, 'TIME',510,511,15)")
+                db.execSQL("INSERT INTO 'ContextConstraint' VALUES(NULL, 'TIME',610,611,15)")
+                db.execSQL("INSERT INTO 'ContextConstraint' VALUES(NULL, 'TIME',710,711,15)")
+                db.execSQL("Insert Into 'Trigger' VALUES(NULL, 'Minute', 'Minute changed', 'NOTIFICATION_IMPORTANT', 1)")
+                db.execSQL("INSERT INTO 'ContextConstraint' VALUES(NULL, 'TIME',10,11,16)")
+                db.execSQL("INSERT INTO 'ContextConstraint' VALUES(NULL, 'TIME',110,111,16)")
+                db.execSQL("INSERT INTO 'ContextConstraint' VALUES(NULL, 'TIME',210,211,16)")
+                db.execSQL("INSERT INTO 'ContextConstraint' VALUES(NULL, 'TIME',310,311,16)")
+                db.execSQL("INSERT INTO 'ContextConstraint' VALUES(NULL, 'TIME',410,411,16)")
+                db.execSQL("INSERT INTO 'ContextConstraint' VALUES(NULL, 'TIME',510,511,16)")
+                db.execSQL("INSERT INTO 'ContextConstraint' VALUES(NULL, 'TIME',610,611,16)")
+                db.execSQL("INSERT INTO 'ContextConstraint' VALUES(NULL, 'TIME',710,711,16)")
                 db.execSQL("INSERT INTO 'Trigger' VALUES (NULL, 'Half-way done', 'You have completed half of your steps! Keep going!', 'NOTIFICATION_IMPORTANT', 1)")
-                db.execSQL("INSERT INTO 'ContextConstraint' VALUES (NULL, 'STEPS', 50, 99, 13)")
+                db.execSQL("INSERT INTO 'ContextConstraint' VALUES (NULL, 'STEPS', 50, 99, 17)")
                 db.execSQL("INSERT INTO 'Trigger' VALUES (NULL, 'Steps completed', 'You completed your steps! Good job!', 'NOTIFICATION_IMPORTANT', 1)")
-                db.execSQL("INSERT INTO 'ContextConstraint' VALUES (NULL, 'STEPS', 100, 100, 14)")
+                db.execSQL("INSERT INTO 'ContextConstraint' VALUES (NULL, 'STEPS', 100, 100, 18)")
             }
         }
     }
