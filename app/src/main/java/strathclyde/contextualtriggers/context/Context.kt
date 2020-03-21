@@ -1,7 +1,5 @@
 package strathclyde.contextualtriggers.context
 
-import android.util.Log
-import strathclyde.contextualtriggers.enums.ContextKey
 import strathclyde.contextualtriggers.trigger.Trigger
 
 abstract class Context {
