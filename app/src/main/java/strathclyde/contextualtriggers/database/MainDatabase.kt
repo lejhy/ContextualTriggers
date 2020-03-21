@@ -63,6 +63,10 @@ abstract class MainDatabase : RoomDatabase(){
                 db.execSQL("INSERT INTO 'ContextConstraint' VALUES (NULL, 'BATTERY_LEVEL', 80, 100, 11)")
                 db.execSQL("INSERT INTO 'Trigger' VALUES (NULL, 'Headphones', 'Headphones are plugged in...', 'NOTIFICATION_IMPORTANT', 1)")
                 db.execSQL("INSERT INTO 'ContextConstraint' VALUES (NULL, 'HEADPHONES', 1, 1, 12)")
+                db.execSQL("INSERT INTO 'Trigger' VALUES (NULL, 'Half-way done', 'You have completed half of your steps! Keep going!', 'NOTIFICATION_IMPORTANT', 1)")
+                db.execSQL("INSERT INTO 'ContextConstraint' VALUES (NULL, 'STEPS', 50, 99, 13)")
+                db.execSQL("INSERT INTO 'Trigger' VALUES (NULL, 'Steps completed', 'You completed your steps! Good job!', 'NOTIFICATION_IMPORTANT', 1)")
+                db.execSQL("INSERT INTO 'ContextConstraint' VALUES (NULL, 'STEPS', 100, 100, 14)")
             }
         }
     }

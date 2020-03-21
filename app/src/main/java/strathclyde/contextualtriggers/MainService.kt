@@ -12,6 +12,7 @@ import strathclyde.contextualtriggers.context.*
 import strathclyde.contextualtriggers.context.activity.*
 import strathclyde.contextualtriggers.context.battery.BatteryLevelContext
 import strathclyde.contextualtriggers.context.headphones.HeadphonesContext
+import strathclyde.contextualtriggers.context.steps.BasicStepsContext
 import strathclyde.contextualtriggers.context.weather.HazeContext
 import strathclyde.contextualtriggers.context.weather.RainContext
 import strathclyde.contextualtriggers.context.weather.SunnyContext
@@ -77,7 +78,8 @@ class MainService : Service() {
                 RainContext(application),
                 TemperatureContext(application),
                 BatteryLevelContext(application),
-                HeadphonesContext(application)
+                HeadphonesContext(application),
+                BasicStepsContext(application)
             )
         )
     }

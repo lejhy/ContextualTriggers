@@ -4,13 +4,14 @@ import strathclyde.contextualtriggers.context.*
 import strathclyde.contextualtriggers.context.activity.*
 import strathclyde.contextualtriggers.context.battery.BatteryLevelContext
 import strathclyde.contextualtriggers.context.headphones.HeadphonesContext
+import strathclyde.contextualtriggers.context.steps.BasicStepsContext
 import strathclyde.contextualtriggers.context.weather.HazeContext
 import strathclyde.contextualtriggers.context.weather.RainContext
 import strathclyde.contextualtriggers.context.weather.SunnyContext
 import strathclyde.contextualtriggers.context.weather.TemperatureContext
 
 enum class ContextKey {
-    IN_VEHICLE, ON_BICYCLE, ON_FOOT, RUNNING, STILL, WALKING, SUNNY, HAZE, RAIN, TEMPERATURE, BATTERY_LEVEL, HEADPHONES;
+    IN_VEHICLE, ON_BICYCLE, ON_FOOT, RUNNING, STILL, WALKING, SUNNY, HAZE, RAIN, TEMPERATURE, BATTERY_LEVEL, HEADPHONES, STEPS;
 
     fun resolveClass(): Class<out Context> {
         return when (this) {
@@ -26,6 +27,7 @@ enum class ContextKey {
             TEMPERATURE -> TemperatureContext::class.java
             BATTERY_LEVEL -> BatteryLevelContext::class.java
             HEADPHONES -> HeadphonesContext::class.java
+            STEPS -> BasicStepsContext::class.java
         }
     }
 }
