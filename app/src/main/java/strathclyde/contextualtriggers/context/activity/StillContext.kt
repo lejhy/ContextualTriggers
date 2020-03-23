@@ -1,7 +1,8 @@
-package strathclyde.contextualtriggers.context
+package strathclyde.contextualtriggers.context.activity
 
 import android.app.Application
 import com.google.android.gms.awareness.fence.DetectedActivityFence
+import strathclyde.contextualtriggers.context.FenceContext
 
 class StillContext(
     application: Application

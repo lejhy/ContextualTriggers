@@ -25,6 +25,11 @@
                 android:exported="false">
         </service>
 
+        <service
+                android:name=".context.steps.StepsDetector"
+                android:exported="false"/>
+
+
         <activity
                 android:name=".MainActivity"
                 android:theme="@android:style/Theme.NoDisplay">
