@@ -13,7 +13,7 @@ class AtHouseContext(
     private val tolerance: Double = 0.5
     override fun useLocation(lat: Double, long: Double): Int {
         //create region known as home location
-        var home: Pair<Double, Double> = getHomeLocation(lat, long)
+        val home: Pair<Double, Double> = getHomeLocation(lat, long)
         //check if lat lon in in tollerance for home region
         return if (
             lat + tolerance > home.first &&
