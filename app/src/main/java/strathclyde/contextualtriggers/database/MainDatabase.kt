@@ -1,5 +1,6 @@
 package strathclyde.contextualtriggers.database
 
+import LocationEntry
 import android.content.Context
 import android.util.Log
 import androidx.room.Database
@@ -8,8 +9,8 @@ import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
 
 @Database(
-    entities = [Trigger::class, ContextConstraint::class],
-    version = 4,
+    entities = [Trigger::class, ContextConstraint::class, LocationEntry::class],
+    version = 5,
     exportSchema = false
 )
 
