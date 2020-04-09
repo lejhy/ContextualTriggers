@@ -18,15 +18,17 @@ abstract class WeatherDescriptionContext(
     private val receiver = object : BroadcastReceiver() {
         override fun onReceive(context: android.content.Context, intent: Intent?) {
             val result = intent?.getStringExtra("result")
-            val jsonObj = JSONObject(result)
-            val weather = jsonObj.getJSONArray("weather").getJSONObject(0)
-            val weatherMain = weather.getString("main")
-            if (weatherMain.toUpperCase() == currentWeather) {
-                update(1)
-            } else {
-                update(0)
+            if (result != null) {
+                val jsonObj = JSONObject(result)
+                val weather = jsonObj.getJSONArray("weather").getJSONObject(0)
+                val weatherMain = weather.getString("main")
+                if (weatherMain.toUpperCase() == currentWeather) {
+                    update(1)
+                } else {
+                    update(0)
+                }
+                Log.d("WEATHER DESCRIPTION CONTEXT $weatherMain", "Updated")
             }
-            Log.d("WEATHER DESCRIPTION CONTEXT", "Updated")
         }
     }
 

@@ -9,7 +9,7 @@ import org.json.JSONObject
 import strathclyde.contextualtriggers.broadcasters.WeatherBroadcast
 import strathclyde.contextualtriggers.context.Context
 
-class TemperatureContext(
+class CloudsContext(
     private val application: Application
 ) : Context() {
     private val receiver = object : BroadcastReceiver() {
@@ -17,9 +17,9 @@ class TemperatureContext(
             val result = intent?.getStringExtra("result")
             if (result != null) {
                 val jsonObj = JSONObject(result)
-                val main = jsonObj.getJSONObject("main")
-                update(main.getInt("temp"))
-                Log.d("TEMPERATURE CONTEXT", "Updated ${main.getInt("temp")}")
+                val clouds = jsonObj.getJSONObject("clouds")
+                update(clouds.getInt("all"))
+                Log.d("CLOUDS CONTEXT", "Updated ${clouds.getInt("all")}")
             }
         }
     }

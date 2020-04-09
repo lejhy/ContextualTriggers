@@ -14,10 +14,7 @@ import strathclyde.contextualtriggers.context.battery.BatteryLevelContext
 import strathclyde.contextualtriggers.context.headphones.HeadphonesContext
 import strathclyde.contextualtriggers.context.steps.BasicStepsContext
 import strathclyde.contextualtriggers.context.time.TimeContext
-import strathclyde.contextualtriggers.context.weather.HazeContext
-import strathclyde.contextualtriggers.context.weather.RainContext
-import strathclyde.contextualtriggers.context.weather.SunnyContext
-import strathclyde.contextualtriggers.context.weather.TemperatureContext
+import strathclyde.contextualtriggers.context.weather.*
 import strathclyde.contextualtriggers.database.MainDatabase
 import strathclyde.contextualtriggers.database.TriggerWithContextConstraintsDao
 import strathclyde.contextualtriggers.trigger.Trigger
@@ -78,6 +75,8 @@ class MainService : Service() {
                 HazeContext(application),
                 RainContext(application),
                 TemperatureContext(application),
+                WindContext(application),
+                CloudsContext(application),
                 BatteryLevelContext(application),
                 HeadphonesContext(application),
 
