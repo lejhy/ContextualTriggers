@@ -1,6 +1,8 @@
 package strathclyde.contextualtriggers.context.location
 
 import android.app.Application
+import strathclyde.contextualtriggers.database.LocationEntry
+import strathclyde.contextualtriggers.database.MainDatabase
 import java.util.*
 import kotlin.collections.HashMap
 
@@ -9,7 +11,7 @@ class AtHouseContext(
 ) : LocationBasedContext(
     application
 ) {
-    private var history: MutableList<Pair<Double, Double>> = LinkedList()
+    private var history: MutableList<LocationEntry> = LinkedList()
     private val tolerance: Double = 0.5
     override fun useLocation(lat: Double, long: Double): Int {
         //create region known as home location
@@ -24,12 +26,19 @@ class AtHouseContext(
     }
 
     private fun getHomeLocation(lat: Double, long: Double): Pair<Double, Double> {
-        history.add(Pair(lat, long))
+        val currentLocation = LocationEntry()
+        currentLocation.lat = lat
+        currentLocation.lon = long
+        currentLocation.date = Calendar.getInstance().timeInMillis
+        MainDatabase.getInstance(super.application).locationEntryDao.update(currentLocation)
+        history.add(currentLocation)
         var home: Pair<Double, Double> = Pair(0.0, 0.0)
         val mapping: MutableMap<Pair<Double, Double>, Int> = HashMap()
-        for (current in history)
-            if (mapping.contains(current))
-                mapping.replace(current, mapping.getValue(current) + 1)
+        for (current in history) {
+            val locationInstace = Pair(current.lat, current.lon)
+            if (mapping.contains(locationInstace))
+                mapping.replace(locationInstace, mapping.getValue(locationInstace) + 1)
+        }
         var max = 0
         for (current in mapping.entries)
             if (current.value > max) {
@@ -40,5 +49,17 @@ class AtHouseContext(
     }
 
 
+    override fun onStart() {
+        super.onStart()
+        history = MainDatabase.getInstance(super.application).locationEntryDao.getAll()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        val dao = MainDatabase.getInstance(super.application).locationEntryDao
+        history.forEach {
+            dao.update(it)
+        }
+    }
 //𝓤𝔀𝓤
 }

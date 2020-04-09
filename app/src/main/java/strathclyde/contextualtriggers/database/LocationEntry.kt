@@ -9,5 +9,5 @@ data class LocationEntry(
     var id: Long = 0L,
     var lat: Double = 0.0,
     var lon: Double = 0.0,
-    var date: Double
+    var date: Long = 0L
 )

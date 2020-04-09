@@ -1,13 +1,13 @@
 package strathclyde.contextualtriggers.database
 
-import androidx.room.Dao
-import androidx.room.Query
-import androidx.room.Transaction
+import androidx.room.*
 
 @Dao
-abstract class LocationEntryDao {
+interface LocationEntryDao {
     @Transaction
     @Query("SELECT * FROM 'LocationEntry'")
     abstract fun getAll(): MutableList<LocationEntry>
 
+    @Update
+    fun update(vararg entry : LocationEntry)
 }
