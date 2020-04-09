@@ -1,6 +1,5 @@
 package strathclyde.contextualtriggers.database
 
-import LocationEntry
 import android.content.Context
 import android.util.Log
 import androidx.room.Database
@@ -16,7 +15,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 
 abstract class MainDatabase : RoomDatabase() {
     abstract val triggerWithContextConstraintsDao: TriggerWithContextConstraintsDao
-
+    abstract val locationEntryDao: LocationEntryDao
     companion object {
         @Volatile
         private var INSTANCE: MainDatabase? = null

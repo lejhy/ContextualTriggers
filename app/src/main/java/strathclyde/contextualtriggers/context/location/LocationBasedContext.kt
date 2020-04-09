@@ -15,7 +15,7 @@ import strathclyde.contextualtriggers.context.Context
 
 
 abstract class LocationBasedContext(
-    private val application: Application
+    protected val application: Application
 ) : Context() {
 
     abstract fun useLocation(lat: Double, long: Double): Int
