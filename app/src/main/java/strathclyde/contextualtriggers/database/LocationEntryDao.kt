@@ -5,7 +5,7 @@ import androidx.room.*
 @Dao
 interface LocationEntryDao {
     @Transaction
-    @Query("SELECT * FROM 'LocationEntry'")
+    @Query("SELECT * FROM `LocationEntry`")
     abstract fun getAll(): MutableList<LocationEntry>
 
     @Update

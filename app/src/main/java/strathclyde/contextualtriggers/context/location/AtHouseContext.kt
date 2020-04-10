@@ -30,6 +30,7 @@ class AtHouseContext(
         currentLocation.lat = lat
         currentLocation.lon = long
         MainDatabase.getInstance(super.application).locationEntryDao.update(currentLocation)
+        history = MainDatabase.getInstance(super.application).locationEntryDao.getAll()
         history.add(currentLocation)
         var home: Pair<Double, Double> = Pair(0.0, 0.0)
         val mapping: MutableMap<Pair<Double, Double>, Int> = HashMap()
@@ -50,7 +51,6 @@ class AtHouseContext(
 
     override fun onStart() {
         super.onStart()
-        history = MainDatabase.getInstance(super.application).locationEntryDao.getAll()
     }
 
     override fun onStop() {
