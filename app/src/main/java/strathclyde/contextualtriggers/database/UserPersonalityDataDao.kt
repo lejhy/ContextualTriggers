@@ -9,7 +9,7 @@ import androidx.room.Update
 interface UserPersonalityDataDao {
 
     @Transaction
-    @Query ("SELECT * FROM 'UserPersonalityData'")
+    @Query ("SELECT * FROM `UserPersonalityData`")
     abstract fun getAll(): List<UserPersonalityData>
 
     @Update
