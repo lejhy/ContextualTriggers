@@ -29,7 +29,6 @@ class AtHouseContext(
         val currentLocation = LocationEntry()
         currentLocation.lat = lat
         currentLocation.lon = long
-        currentLocation.date = Calendar.getInstance().timeInMillis
         MainDatabase.getInstance(super.application).locationEntryDao.update(currentLocation)
         history.add(currentLocation)
         var home: Pair<Double, Double> = Pair(0.0, 0.0)
