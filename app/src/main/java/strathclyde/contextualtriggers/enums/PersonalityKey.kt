@@ -3,11 +3,11 @@ package strathclyde.contextualtriggers.enums
 enum class PersonalityKey {
     MOTIVATED, LAZY, DEFAULT;
 
-    fun resolve(): String {
+    fun resolve(): Int {
         return when (this) {
-            MOTIVATED -> "motivated"
-            LAZY -> "lazy"
-            DEFAULT -> "default"
+            MOTIVATED -> 0
+            LAZY -> 1
+            DEFAULT -> -1
         }
     }
 }

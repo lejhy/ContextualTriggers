@@ -7,13 +7,14 @@ import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
 
 @Database(
-    entities = [Trigger::class, ContextConstraint::class],
+    entities = [Trigger::class, ContextConstraint::class, UserPersonalityData::class],
     version = 4,
     exportSchema = false
 )
 
 abstract class MainDatabase : RoomDatabase() {
     abstract val triggerWithContextConstraintsDao: TriggerWithContextConstraintsDao
+    abstract val userPersonalityDataDao: UserPersonalityDataDao
 
     companion object {
         @Volatile

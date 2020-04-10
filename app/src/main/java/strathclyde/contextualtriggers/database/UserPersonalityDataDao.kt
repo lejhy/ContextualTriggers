@@ -10,9 +10,9 @@ interface UserPersonalityDataDao {
 
     @Transaction
     @Query ("SELECT * FROM `UserPersonalityData`")
-    abstract fun getAll(): List<UserPersonalityData>
+    fun getAll(): List<UserPersonalityData>
 
     @Update
-    abstract fun updateUserPersonalityData(userPersonalityData: UserPersonalityData)
+    fun updateUserPersonalityData(userPersonalityData: UserPersonalityData)
 
 }
