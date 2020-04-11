@@ -63,8 +63,6 @@ abstract class MainDatabase : RoomDatabase() {
                 db.execSQL("INSERT INTO 'ContextConstraint' VALUES (NULL, 'TEMPERATURE', 0, 20, 10)")
                 db.execSQL("INSERT INTO 'Trigger' VALUES (NULL, 'Battery good', 'Battery above 80%', 'NOTIFICATION_IMPORTANT', 1)")
                 db.execSQL("INSERT INTO 'ContextConstraint' VALUES (NULL, 'BATTERY_LEVEL', 80, 100, 11)")
-                db.execSQL("INSERT INTO 'Trigger' VALUES (NULL, 'At Home', 'UwU u is at home', 'NOTIFICATION_IMPORTANT', 1)")
-                db.execSQL("INSERT INTO 'ContextConstraint' VALUES (NULL, 'AT_HOME', 1, 1, 12)")
                 db.execSQL("INSERT INTO 'Trigger' VALUES (NULL, 'Headphones', 'Headphones are plugged in...', 'NOTIFICATION_IMPORTANT', 1)")
                 db.execSQL("INSERT INTO 'ContextConstraint' VALUES (NULL, 'HEADPHONES', 1, 1, 12)")
                 db.execSQL("Insert Into 'Trigger' VALUES (NULL, 'Day', 'Day changed', 'NOTIFICATION_IMPORTANT', 1)")
@@ -97,6 +95,8 @@ abstract class MainDatabase : RoomDatabase() {
                 db.execSQL("INSERT INTO 'ContextConstraint' VALUES (NULL, 'WIND_SPEED', 0, 10, 19)")
                 db.execSQL("INSERT INTO 'Trigger' VALUES (NULL, 'Clouds', 'There are no or little clouds', 'NOTIFICATION_IMPORTANT', 1)")
                 db.execSQL("INSERT INTO 'ContextConstraint' VALUES (NULL, 'CLOUDS', 0, 20, 20)")
+                db.execSQL("INSERT INTO 'Trigger' VALUES (NULL, 'At Home', 'UwU u is at home', 'NOTIFICATION_IMPORTANT', 1)")
+                db.execSQL("INSERT INTO 'ContextConstraint' VALUES (NULL, 'AT_HOME', 1, 1, 21)")
             }
         }
     }
