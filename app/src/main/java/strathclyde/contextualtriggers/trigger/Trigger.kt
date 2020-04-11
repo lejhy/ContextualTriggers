@@ -65,7 +65,7 @@ class Trigger(
     private fun createNotification() {
         UserPersonalityDecider
         val notification: Notification =
-            if (UserPersonalityDecider.getDecider(application.applicationContext)
+            if (altContent == "" || UserPersonalityDecider.getDecider(application.applicationContext)
                     .isPositivePersonality()
             ) {
                 Notification.Builder(application, application.getString(R.string.channel_id))
