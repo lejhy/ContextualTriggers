@@ -5,21 +5,19 @@ import android.content.BroadcastReceiver
 import android.content.Intent
 import android.content.IntentFilter
 import android.util.Log
-import org.json.JSONObject
 import strathclyde.contextualtriggers.broadcasters.WeatherBroadcast
 import strathclyde.contextualtriggers.context.Context
+import kotlin.math.roundToInt
 
 class TemperatureContext(
     private val application: Application
 ) : Context() {
     private val receiver = object : BroadcastReceiver() {
         override fun onReceive(context: android.content.Context, intent: Intent?) {
-            val result = intent?.getStringExtra("result")
-            if (result != null) {
-                val jsonObj = JSONObject(result)
-                val main = jsonObj.getJSONObject("main")
-                update(main.getInt("temp"))
-                Log.d("TEMPERATURE CONTEXT", "Updated ${main.getInt("temp")}")
+            val temp = intent?.getFloatExtra("temp", 0f)
+            if (temp != null) {
+                update(temp.roundToInt())
+                Log.d("TEMPERATURE CONTEXT", "Updated ${temp.roundToInt()}")
             }
         }
     }

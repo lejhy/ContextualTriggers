@@ -1,6 +1,7 @@
 package strathclyde.contextualtriggers.database
 
 import android.content.Context
+import android.util.Log
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
@@ -8,14 +9,15 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 import java.util.*
 
 @Database(
-    entities = [Trigger::class, ContextConstraint::class, UserPersonalityData::class],
-    version = 4,
+    entities = [Trigger::class, ContextConstraint::class, LocationEntry::class, UserPersonalityData::class],
+    version = 5,
     exportSchema = false
 )
 
 abstract class MainDatabase : RoomDatabase() {
     abstract val triggerWithContextConstraintsDao: TriggerWithContextConstraintsDao
     abstract val userPersonalityDataDao: UserPersonalityDataDao
+    abstract val locationEntryDao: LocationEntryDao
 
     companion object {
         @Volatile
@@ -77,6 +79,7 @@ abstract class MainDatabase : RoomDatabase() {
                 db.execSQL("INSERT INTO 'ContextConstraint' VALUES (NULL, 'STEPS', 100, 100, 18)")
                 db.execSQL("INSERT INTO 'ContextConstraint' VALUES (NULL, 'WIND_SPEED', 0, 10, 19)")
                 db.execSQL("INSERT INTO 'ContextConstraint' VALUES (NULL, 'CLOUDS', 0, 20, 20)")
+                db.execSQL("INSERT INTO 'ContextConstraint' VALUES (NULL, 'AT_HOME', 1, 1, 21)")
             }
         }
     }

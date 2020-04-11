@@ -5,21 +5,19 @@ import android.content.BroadcastReceiver
 import android.content.Intent
 import android.content.IntentFilter
 import android.util.Log
-import org.json.JSONObject
 import strathclyde.contextualtriggers.broadcasters.WeatherBroadcast
 import strathclyde.contextualtriggers.context.Context
+import kotlin.math.roundToInt
 
 class WindContext(
     private val application: Application
 ) : Context() {
     private val receiver = object : BroadcastReceiver() {
         override fun onReceive(context: android.content.Context, intent: Intent?) {
-            val result = intent?.getStringExtra("result")
-            if (result != null) {
-                val jsonObj = JSONObject(result)
-                val wind = jsonObj.getJSONObject("wind")
-                update(wind.getInt("speed"))
-                Log.d("WIND CONTEXT", "Updated ${wind.getInt("speed")}")
+            val windSpeed = intent?.getFloatExtra("windspeed", 0f)
+            if (windSpeed != null) {
+                update(windSpeed.roundToInt())
+                Log.d("WIND CONTEXT", "Updated ${windSpeed.roundToInt()}")
             }
         }
     }
