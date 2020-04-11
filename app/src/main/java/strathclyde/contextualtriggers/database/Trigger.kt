@@ -10,9 +10,9 @@ data class Trigger(
     var id: Long = 0L,
     var title: String = "",
     var content: String = "",
-    var altContent: String = "",
     var iconKey: String = "",
     var active: Boolean = false,
+    var altContent: String = "",
     var success: Int = PersonalityKey.MOTIVATED.resolve(),
     var failure: Int = PersonalityKey.LAZY.resolve()
 )
