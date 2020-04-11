@@ -13,6 +13,6 @@ interface UserPersonalityDataDao {
     fun getAll(): List<UserPersonalityData>
 
     @Update
-    fun updateUserPersonalityData(userPersonalityData: UserPersonalityData)
+    fun update(userPersonalityData: UserPersonalityData)
 
 }
