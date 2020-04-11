@@ -7,23 +7,17 @@ import android.content.IntentFilter
 import android.util.Log
 import strathclyde.contextualtriggers.broadcasters.WeatherBroadcast
 import strathclyde.contextualtriggers.context.Context
+import kotlin.math.roundToInt
 
-abstract class WeatherDescriptionContext(
-    private val application: Application,
-    private val currentWeather: String
-
+class WindContext(
+    private val application: Application
 ) : Context() {
-
     private val receiver = object : BroadcastReceiver() {
         override fun onReceive(context: android.content.Context, intent: Intent?) {
-            val weather = intent?.getStringExtra("weather")
-            if (weather != null) {
-                if (weather.toUpperCase() == currentWeather) {
-                    update(1)
-                } else {
-                    update(0)
-                }
-                Log.d("WEATHER DESCRIPTION CONTEXT $weather", "Updated")
+            val windSpeed = intent?.getFloatExtra("windspeed", 0f)
+            if (windSpeed != null) {
+                update(windSpeed.roundToInt())
+                Log.d("WIND CONTEXT", "Updated ${windSpeed.roundToInt()}")
             }
         }
     }
@@ -35,5 +29,4 @@ abstract class WeatherDescriptionContext(
     override fun onStop() {
         application.unregisterReceiver(receiver)
     }
-
 }

@@ -5,25 +5,21 @@ import android.content.BroadcastReceiver
 import android.content.Intent
 import android.content.IntentFilter
 import android.util.Log
+import org.json.JSONObject
 import strathclyde.contextualtriggers.broadcasters.WeatherBroadcast
 import strathclyde.contextualtriggers.context.Context
 
-abstract class WeatherDescriptionContext(
-    private val application: Application,
-    private val currentWeather: String
-
+class CloudsContext(
+    private val application: Application
 ) : Context() {
-
     private val receiver = object : BroadcastReceiver() {
         override fun onReceive(context: android.content.Context, intent: Intent?) {
-            val weather = intent?.getStringExtra("weather")
-            if (weather != null) {
-                if (weather.toUpperCase() == currentWeather) {
-                    update(1)
-                } else {
-                    update(0)
-                }
-                Log.d("WEATHER DESCRIPTION CONTEXT $weather", "Updated")
+            val result = intent?.getStringExtra("result")
+            if (result != null) {
+                val jsonObj = JSONObject(result)
+                val clouds = jsonObj.getJSONObject("clouds")
+                update(clouds.getInt("all"))
+                Log.d("CLOUDS CONTEXT", "Updated ${clouds.getInt("all")}")
             }
         }
     }
@@ -35,5 +31,4 @@ abstract class WeatherDescriptionContext(
     override fun onStop() {
         application.unregisterReceiver(receiver)
     }
-
 }
