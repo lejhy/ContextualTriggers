@@ -32,33 +32,20 @@ class WeatherBroadcast(
             override fun run() {
                 val location = getLocation()
                 if (location != null) {
-                    CoroutineScope(IO).launch {
-                        val weatherResponse = RetrofitBuilder.weatherApiService.getWeather(
-                            location.latitude,
-                            location.longitude,
-                            "metric",
-                            "2c6c4f6e4567938518b066d7122660d1"
-                        )
-                        sendWeatherBroadcast(weatherResponse)
-                    }
+                    fetchWeather(location)
                 }
                 mainHandler.postDelayed(this, 60000)
             }
         })
         Log.d("Weather Broadcast ", "Started")
-
-
     }
 
     private fun getLocation(): Location? {
-        if (
-            ContextCompat.checkSelfPermission(
-                application,
-                android.Manifest.permission.ACCESS_FINE_LOCATION
+        if (ContextCompat.checkSelfPermission(
+                application, android.Manifest.permission.ACCESS_FINE_LOCATION
             ) == PackageManager.PERMISSION_GRANTED &&
             ContextCompat.checkSelfPermission(
-                application,
-                android.Manifest.permission.ACCESS_COARSE_LOCATION
+                application, android.Manifest.permission.ACCESS_COARSE_LOCATION
             ) == PackageManager.PERMISSION_GRANTED
         ) {
             val lm = application.getSystemService(LOCATION_SERVICE) as LocationManager?
@@ -67,7 +54,24 @@ class WeatherBroadcast(
         return null
     }
 
-    private fun sendWeatherBroadcast(weatherResponse: WeatherResponse) {
+    private fun fetchWeather(location: Location) {
+        CoroutineScope(IO).launch {
+            val weatherResponse = RetrofitBuilder.OPEN_WEATHER_API_SERVICE.getWeather(
+                location.latitude,
+                location.longitude,
+                "metric",
+                "2c6c4f6e4567938518b066d7122660d1"
+            )
+            if (weatherResponse.isSuccessful) {
+                weatherResponse.body()?.let { broadcastWeather(it) }
+            } else {
+                Log.w("Weather call not successful", "${weatherResponse.code()}")
+            }
+
+        }
+    }
+
+    private fun broadcastWeather(weatherResponse: WeatherResponse) {
         Intent().also { intent ->
             intent.action = WEATHER_BROADCAST_ID
             intent.putExtra("weather", weatherResponse.weather?.get(0)?.main)
