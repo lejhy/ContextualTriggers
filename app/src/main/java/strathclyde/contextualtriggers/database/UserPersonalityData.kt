@@ -7,6 +7,6 @@ import strathclyde.contextualtriggers.enums.PersonalityKey
 @Entity
 data class UserPersonalityData(
     @PrimaryKey
-    var key: PersonalityKey = PersonalityKey.DEFAULT,
+    var key: Int = PersonalityKey.DEFAULT.resolve(),
     var value: Int = 0
 )
