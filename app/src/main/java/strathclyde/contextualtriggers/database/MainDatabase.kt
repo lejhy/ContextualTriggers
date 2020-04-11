@@ -1,20 +1,21 @@
 package strathclyde.contextualtriggers.database
 
 import android.content.Context
+import android.util.Log
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
 
 @Database(
-    entities = [Trigger::class, ContextConstraint::class],
-    version = 4,
+    entities = [Trigger::class, ContextConstraint::class, LocationEntry::class],
+    version = 5,
     exportSchema = false
 )
 
 abstract class MainDatabase : RoomDatabase() {
     abstract val triggerWithContextConstraintsDao: TriggerWithContextConstraintsDao
-
+    abstract val locationEntryDao: LocationEntryDao
     companion object {
         @Volatile
         private var INSTANCE: MainDatabase? = null
@@ -62,6 +63,8 @@ abstract class MainDatabase : RoomDatabase() {
                 db.execSQL("INSERT INTO 'ContextConstraint' VALUES (NULL, 'TEMPERATURE', 0, 20, 10)")
                 db.execSQL("INSERT INTO 'Trigger' VALUES (NULL, 'Battery good', 'Battery above 80%', 'NOTIFICATION_IMPORTANT', 1)")
                 db.execSQL("INSERT INTO 'ContextConstraint' VALUES (NULL, 'BATTERY_LEVEL', 80, 100, 11)")
+                db.execSQL("INSERT INTO 'Trigger' VALUES (NULL, 'At Home', 'UwU u is at home', 'NOTIFICATION_IMPORTANT', 1)")
+                db.execSQL("INSERT INTO 'ContextConstraint' VALUES (NULL, 'AT_HOME', 1, 1, 12)")
                 db.execSQL("INSERT INTO 'Trigger' VALUES (NULL, 'Headphones', 'Headphones are plugged in...', 'NOTIFICATION_IMPORTANT', 1)")
                 db.execSQL("INSERT INTO 'ContextConstraint' VALUES (NULL, 'HEADPHONES', 1, 1, 12)")
                 db.execSQL("Insert Into 'Trigger' VALUES (NULL, 'Day', 'Day changed', 'NOTIFICATION_IMPORTANT', 1)")

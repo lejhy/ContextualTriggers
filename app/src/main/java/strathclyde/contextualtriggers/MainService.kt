@@ -11,6 +11,7 @@ import strathclyde.contextualtriggers.broadcasters.WeatherBroadcast
 import strathclyde.contextualtriggers.context.*
 import strathclyde.contextualtriggers.context.activity.*
 import strathclyde.contextualtriggers.context.battery.BatteryLevelContext
+import strathclyde.contextualtriggers.context.location.AtHouseContext
 import strathclyde.contextualtriggers.context.headphones.HeadphonesContext
 import strathclyde.contextualtriggers.context.steps.BasicStepsContext
 import strathclyde.contextualtriggers.context.time.TimeContext
@@ -79,9 +80,9 @@ class MainService : Service() {
                 CloudsContext(application),
                 BatteryLevelContext(application),
                 HeadphonesContext(application),
-
                 TimeContext(application),
-                BasicStepsContext(application)
+                BasicStepsContext(application),
+                AtHouseContext(application)
             )
         )
     }
