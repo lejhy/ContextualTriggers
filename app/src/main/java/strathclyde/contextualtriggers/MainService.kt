@@ -226,6 +226,14 @@ class MainService : Service() {
                 active = true
             )
         )
+        triggers.add(
+            strathclyde.contextualtriggers.database.Trigger(
+                title = "At Home",
+                content = "UwU u is at home",
+                iconKey = "NOTIFICATION_IMPORTANT",
+                active = true
+            )
+        )
 
         DBSave().execute(database, triggers)
     }
