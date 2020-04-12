@@ -28,6 +28,8 @@ class JobUtils {
                 val info = JobInfo.Builder(WEATHER_JOB_ID, componentName)
                     .setPersisted(true)
                     .setExtras(bundle)
+                    .setRequiresBatteryNotLow(true)
+                    .setRequiredNetworkType(JobInfo.NETWORK_TYPE_NOT_ROAMING)
                     .setPeriodic(15 * 60 * 1000) // Cant be set less than 15 min
                     .build()
                 val scheduler =
@@ -50,13 +52,7 @@ class JobUtils {
                 ) == PackageManager.PERMISSION_GRANTED
             ) {
                 val lm =
-                    context.getSystemService(android.content.Context.LOCATION_SERVICE) as LocationManager?
-                Log.d("laction what? ", "what")
-                if (lm?.getLastKnownLocation(LocationManager.GPS_PROVIDER) == null) {
-                    Log.d("LOCATION LULLL", "NULL")
-                    return null
-                }
-                Log.d("LOCATION LULLL }", "not NULL")
+                    context.getSystemService(Context.LOCATION_SERVICE) as LocationManager?
                 return lm?.getLastKnownLocation(LocationManager.GPS_PROVIDER)
             }
             Log.d("Location Null", "null")

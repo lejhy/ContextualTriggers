@@ -6,21 +6,21 @@ import com.google.gson.annotations.SerializedName
 
 data class WeatherResponse(
     @Expose
-    val weather: ArrayList<Weather>? = null,
+    override val weather: ArrayList<Weather>? = null,
 
     @Expose
-    val main: Main?,
+    override val main: Main?,
 
     @Expose
-    val wind: Wind?,
+    override val wind: Wind?,
 
     @Expose
-    val clouds: Clouds?,
+    override val clouds: Clouds?,
 
     @Expose
-    val rain: Rain?
+    override val rain: Rain?
 
-)
+): IWeatherResponse
 
 class Weather {
     var main: String? = null
