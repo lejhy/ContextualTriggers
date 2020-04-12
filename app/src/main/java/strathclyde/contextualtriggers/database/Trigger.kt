@@ -14,5 +14,9 @@ data class Trigger(
     var active: Boolean = false,
     var altContent: String = "",
     var success: Int = PersonalityKey.MOTIVATED.resolve(),
-    var failure: Int = PersonalityKey.LAZY.resolve()
+    var failure: Int = PersonalityKey.LAZY.resolve(),
+    var useProgressBar: Boolean = false,
+    var actionKeys: String = "",        // delimiter = ','
+    var progressContentUri: String,
+    var actionContentUri: String
 )

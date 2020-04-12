@@ -35,129 +35,213 @@ class DefaultData {
                     title = "In Vehicle",
                     content = "You are in vehicle...",
                     iconKey = "NOTIFICATION_IMPORTANT",
-                    active = true
+                    active = true,
+                    useProgressBar = false,
+                    actionKeys = "",
+                    progressContentUri = "",
+                    actionContentUri = ""
                 ),
                 Trigger(
                     title = "On Bicycle",
                     content = "You are on bicycle...",
                     iconKey = "NOTIFICATION_IMPORTANT",
-                    active = true
+                    active = true,
+                    useProgressBar = false,
+                    actionKeys = "",
+                    progressContentUri = "",
+                    actionContentUri = ""
                 ),
                 Trigger(
                     title = "On Foot",
                     content = "You are on foot...",
                     iconKey = "NOTIFICATION_IMPORTANT",
-                    active = true
+                    active = true,
+                    useProgressBar = false,
+                    actionKeys = "",
+                    progressContentUri = "",
+                    actionContentUri = ""
                 ),
                 Trigger(
                     title = "Running",
                     content = "You are running...",
                     iconKey = "NOTIFICATION_IMPORTANT",
-                    active = true
+                    active = true,
+                    useProgressBar = false,
+                    actionKeys = "",
+                    progressContentUri = "",
+                    actionContentUri = ""
                 ),
                 Trigger(
                     title = "Still",
                     content = "You are still...",
                     iconKey = "NOTIFICATION_IMPORTANT",
-                    active = true
+                    active = true,
+                    useProgressBar = false,
+                    actionKeys = "",
+                    progressContentUri = "",
+                    actionContentUri = ""
                 ),
                 Trigger(
                     title = "Walking",
                     content = "You are walking...",
                     iconKey = "NOTIFICATION_IMPORTANT",
-                    active = true
+                    active = true,
+                    useProgressBar = false,
+                    actionKeys = "",
+                    progressContentUri = "",
+                    actionContentUri = ""
                 ),
                 Trigger(
                     title = "Sunny",
                     content = "The weather is sunny...",
                     iconKey = "NOTIFICATION_IMPORTANT",
-                    active = true
+                    active = true,
+                    useProgressBar = false,
+                    actionKeys = "",
+                    progressContentUri = "",
+                    actionContentUri = ""
                 ),
                 Trigger(
                     title = "Haze",
                     content = "There is haze outside....",
                     iconKey = "NOTIFICATION_IMPORTANT",
-                    active = true
+                    active = true,
+                    useProgressBar = false,
+                    actionKeys = "",
+                    progressContentUri = "",
+                    actionContentUri = ""
                 ),
                 Trigger(
                     title = "Rain",
                     content = "Its raining outside...",
                     iconKey = "NOTIFICATION_IMPORTANT",
-                    active = true
+                    active = true,
+                    useProgressBar = false,
+                    actionKeys = "",
+                    progressContentUri = "",
+                    actionContentUri = ""
                 ),
                 Trigger(
                     title = "Warm outside",
                     content = "Its warm outside...",
                     altContent = "Its warm outside, get walking!",
                     iconKey = "NOTIFICATION_IMPORTANT",
-                    active = true
+                    active = true,
+                    useProgressBar = false,
+                    actionKeys = "",
+                    progressContentUri = "",
+                    actionContentUri = ""
                 ),
                 Trigger(
                     title = "Battery good",
                     content = "Battery above 80%'",
                     altContent = "Keep your phone charged!",
                     iconKey = "NOTIFICATION_IMPORTANT",
-                    active = true
+                    active = true,
+                    useProgressBar = false,
+                    actionKeys = "",
+                    progressContentUri = "",
+                    actionContentUri = ""
                 ),
                 Trigger(
                     title = "Headphones",
                     content = "Headphones are plugged in...",
                     iconKey = "NOTIFICATION_IMPORTANT",
-                    active = true
+                    active = true,
+                    useProgressBar = false,
+                    actionKeys = "",
+                    progressContentUri = "",
+                    actionContentUri = ""
                 ),
                 Trigger(
                     title = "Day",
                     content = "Day changed",
                     iconKey = "NOTIFICATION_IMPORTANT",
-                    active = true
+                    active = true,
+                    useProgressBar = false,
+                    actionKeys = "",
+                    progressContentUri = "",
+                    actionContentUri = ""
                 ),
                 Trigger(
                     title = "Weekend",
                     content = "Day changed to a saturday or sunday",
                     iconKey = "NOTIFICATION_IMPORTANT",
-                    active = true
+                    active = true,
+                    useProgressBar = false,
+                    actionKeys = "",
+                    progressContentUri = "",
+                    actionContentUri = ""
                 ),
                 Trigger(
                     title = "Hour",
                     content = "Hour changed",
                     iconKey = "NOTIFICATION_IMPORTANT",
-                    active = true
+                    active = true,
+                    useProgressBar = false,
+                    actionKeys = "",
+                    progressContentUri = "",
+                    actionContentUri = ""
                 ),
                 Trigger(
                     title = "Minute",
                     content = "Minute changed",
                     iconKey = "NOTIFICATION_IMPORTANT",
-                    active = true
+                    active = true,
+                    useProgressBar = false,
+                    actionKeys = "",
+                    progressContentUri = "",
+                    actionContentUri = ""
                 ),
                 Trigger(
                     title = "Half-way done",
                     content = "You have completed half of your steps! Keep going!",
                     iconKey = "NOTIFICATION_IMPORTANT",
-                    active = true
+                    active = true,
+                    useProgressBar = false,
+                    actionKeys = "",
+                    progressContentUri = "",
+                    actionContentUri = ""
                 ),
                 Trigger(
                     title = "Steps completed",
                     content = "You completed your steps! Good job!",
                     iconKey = "NOTIFICATION_IMPORTANT",
-                    active = true
+                    active = true,
+                    useProgressBar = false,
+                    actionKeys = "",
+                    progressContentUri = "",
+                    actionContentUri = ""
                 ),
                 Trigger(
                     title = "Wind speed",
                     content = "There is little wind",
                     iconKey = "NOTIFICATION_IMPORTANT",
-                    active = true
+                    active = true,
+                    useProgressBar = false,
+                    actionKeys = "",
+                    progressContentUri = "",
+                    actionContentUri = ""
                 ),
                 Trigger(
                     title = "Clouds",
                     content = "There is no or little clouds",
                     iconKey = "NOTIFICATION_IMPORTANT",
-                    active = true
+                    active = true,
+                    useProgressBar = false,
+                    actionKeys = "",
+                    progressContentUri = "",
+                    actionContentUri = ""
                 ),
                 Trigger(
                     title = "At Home",
                     content = "You are currently at home.",
                     iconKey = "NOTIFICATION_IMPORTANT",
-                    active = true
+                    active = true,
+                    useProgressBar = false,
+                    actionKeys = "",
+                    progressContentUri = "",
+                    actionContentUri = ""
                 )
             )
         }

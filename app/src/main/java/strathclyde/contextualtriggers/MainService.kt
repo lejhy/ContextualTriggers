@@ -4,7 +4,6 @@ import android.app.Notification
 import android.app.PendingIntent
 import android.app.Service
 import android.content.Intent
-import android.os.AsyncTask
 import android.os.IBinder
 import android.util.Log
 import kotlinx.coroutines.*
@@ -12,18 +11,15 @@ import strathclyde.contextualtriggers.UserPersonality.UserPersonalityDecider
 import strathclyde.contextualtriggers.context.Context
 import strathclyde.contextualtriggers.context.activity.*
 import strathclyde.contextualtriggers.context.battery.BatteryLevelContext
-import strathclyde.contextualtriggers.context.location.AtHouseContext
 import strathclyde.contextualtriggers.context.headphones.HeadphonesContext
+import strathclyde.contextualtriggers.context.location.AtHouseContext
 import strathclyde.contextualtriggers.context.steps.BasicStepsContext
 import strathclyde.contextualtriggers.context.time.TimeContext
 import strathclyde.contextualtriggers.context.weather.*
 import strathclyde.contextualtriggers.database.DefaultData
 import strathclyde.contextualtriggers.database.MainDatabase
 import strathclyde.contextualtriggers.database.TriggerWithContextConstraintsDao
-import strathclyde.contextualtriggers.database.UserPersonalityData
-import strathclyde.contextualtriggers.enums.PersonalityKey
 import strathclyde.contextualtriggers.trigger.Trigger
-import java.util.*
 
 class MainService : Service() {
 
