@@ -69,7 +69,7 @@ class AtHouseContext(
         override fun doInBackground(vararg p0: AtHouseContext?): Void? {
             val master = p0.first()
             master?.history?.forEach { master.locationEntryDao.update(it) }
-            Log.d("AT HOME CONTEXT", "UwU i save history " + (master?.history))
+            Log.d("AT HOME CONTEXT", "save history " + (master?.history))
             return null
         }
 
@@ -81,7 +81,7 @@ class AtHouseContext(
 
             if (master != null)
                 master.history = master.locationEntryDao.getAll()
-            Log.d("AT HOME CONTEXT", "UwU i got history " + (master?.history))
+            Log.d("AT HOME CONTEXT", "fetch history " + (master?.history))
             return null
         }
 
