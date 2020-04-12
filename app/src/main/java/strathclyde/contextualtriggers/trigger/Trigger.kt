@@ -2,7 +2,11 @@ package strathclyde.contextualtriggers.trigger
 
 import android.app.Application
 import android.app.Notification
+import android.app.Notification.Action.Builder
 import android.app.NotificationManager
+import android.app.PendingIntent
+import android.content.Intent
+import android.net.Uri
 import android.util.Log
 import strathclyde.contextualtriggers.R
 import strathclyde.contextualtriggers.UserPersonality.UserPersonalityDecider
@@ -10,6 +14,9 @@ import strathclyde.contextualtriggers.context.Context
 import strathclyde.contextualtriggers.database.TriggerWithContextConstraints
 import strathclyde.contextualtriggers.enums.ContextKey
 import strathclyde.contextualtriggers.enums.IconKey
+import kotlin.collections.component1
+import kotlin.collections.component2
+import kotlin.collections.set
 
 class Trigger(
     private val application: Application,
@@ -24,8 +31,9 @@ class Trigger(
     private val active = triggerWithContextConstraints.trigger.active
     private val contextConstraintsMap: MutableMap<Context, MutableList<Constraint>> = mutableMapOf()
     private val useProgressBar = triggerWithContextConstraints.trigger.useProgressBar
-    private val useBadging = triggerWithContextConstraints.trigger.useBadging
     private val actionKeys = triggerWithContextConstraints.trigger.actionkeys
+    private val actionContentUri = triggerWithContextConstraints.trigger.actionContentUri
+    private val progressContentUri = triggerWithContextConstraints.trigger.progressContentUri
 
     private val notificationManager =
         application.getSystemService(android.content.Context.NOTIFICATION_SERVICE) as NotificationManager
@@ -52,7 +60,7 @@ class Trigger(
         }
     }
 
-    fun update(context: Context, value: Int) {
+    fun update(context: Context, value: Int, callingContext: android.content.Context) {
         contextConstraintsMap[context]?.forEach { constraint ->
             constraint.evaluate(value)
         }
@@ -61,37 +69,64 @@ class Trigger(
             if (!constraints.map { constraint -> constraint.state }.reduce { acc, state -> acc || state }) return
         }
         Log.i("Trigger $title", "notification")
-        createNotification()
+        createNotification(callingContext)
     }
 
-    private fun createNotification() {
+    private fun createNotification(context: android.content.Context) {
+        val notificiationBuilder = getBaseNotification()
 
+        if (useProgressBar) {
+            val (current_val, max_val, indeterminate) = requestProgressBarValues(progressContentUri)
+            notificiationBuilder.setProgress(max_val, current_val, indeterminate)
+        }
+        if (actionKeys.isNotEmpty()) {
+            requestActionKeyValues(actionContentUri, actionKeys).forEach {
+                notificiationBuilder.addAction(it)
+            }
+        }
         val notification: Notification =
             if (altContent == "" || with(UserPersonalityDecider) {
                     getDecider(application.applicationContext)
                         .isPositivePersonality()
                 }
             ) {
-                createDefaultNotification()
+                createDefaultNotification(notificiationBuilder)
             } else {
-                createAltNotification()
+                createAltNotification(notificiationBuilder)
             }
 
         notificationManager.notify(R.integer.walkingNotificationId, notification)
     }
 
-    private fun createDefaultNotification(): Notification =
+
+    private fun requestActionKeyValues(
+        uri: String,
+        actionKeys: List<String>
+    ): List<Notification.Action> {
+
+        return actionKeys.map {
+            val actionIntent = Intent(it, Uri.parse(uri))
+            val pendingActionIntent: PendingIntent =
+                PendingIntent.getBroadcast(application, 0, actionIntent, 0)
+            Builder(iconKey.resolveResource(), it, pendingActionIntent).build()
+        }
+    }
+
+
+    private fun requestProgressBarValues(progressContentUri: String): Triple<Int, Int, Boolean> {
+//        val progressIntent = Intent("PROGRESS", Uri.parse(progressContentUri) )
+//        progressIntent.
+        return Triple(50, 100, true)
+    }
+
+    private fun getBaseNotification() =
         Notification.Builder(application, application.getString(R.string.channel_id))
             .setContentTitle(title)
-            .setContentText(content)
             .setSmallIcon(iconKey.resolveResource())
-            .build()
 
-    private fun createAltNotification(): Notification =
-        Notification.Builder(application, application.getString(R.string.channel_id))
-            .setContentTitle(title)
-            .setContentText(altContent)
-            .setSmallIcon(iconKey.resolveResource())
-            .build()
+    private fun createDefaultNotification(builder: Notification.Builder): Notification =
+        builder.setContentText(content).build()
 
+    private fun createAltNotification(builder: Notification.Builder): Notification =
+        builder.setContentText(altContent).build()
 }
