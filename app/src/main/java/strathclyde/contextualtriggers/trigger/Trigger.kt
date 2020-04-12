@@ -28,7 +28,6 @@ class Trigger(
     private val content = triggerWithContextConstraints.trigger.content
     private val altContent = triggerWithContextConstraints.trigger.altContent
     private val iconKey = IconKey.valueOf(triggerWithContextConstraints.trigger.iconKey)
-    private val active = triggerWithContextConstraints.trigger.active
     private val contextConstraintsMap: MutableMap<Context, MutableList<Constraint>> = mutableMapOf()
     private val success = triggerWithContextConstraints.trigger.success
     private val failure = triggerWithContextConstraints.trigger.failure
@@ -52,7 +51,7 @@ class Trigger(
             if (constraintList == null) {
                 constraintList = mutableListOf()
                 contextConstraintsMap[context] = constraintList
-                if (active) context.register(this) //TODO dynamic activation and deactivation
+                context.register(this)
             }
             constraintList.add(
                 Constraint(
@@ -60,6 +59,12 @@ class Trigger(
                     constraint.greaterThanOrEqualTo
                 )
             )
+        }
+    }
+
+    fun onDestroy() {
+        contextConstraintsMap.forEach { (t, _) ->
+            t.unregister(this)
         }
     }
 
