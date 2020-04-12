@@ -8,6 +8,7 @@ import android.os.AsyncTask
 import android.os.IBinder
 import android.util.Log
 import kotlinx.coroutines.*
+import strathclyde.contextualtriggers.UserPersonality.UserPersonalityDecider
 import strathclyde.contextualtriggers.broadcasters.WeatherBroadcast
 import strathclyde.contextualtriggers.context.*
 import strathclyde.contextualtriggers.context.activity.*
@@ -94,6 +95,7 @@ class MainService : Service() {
     }
 
     private fun initializeTriggers(database: MainDatabase) {
+        val temp = this
         scope.launch {
             var isFirstLaunch = true
             val triggerWithContextConstraints = withContext(Dispatchers.IO) {
@@ -108,6 +110,7 @@ class MainService : Service() {
                 DefaultData.setUpDefaultData(database)
                 initializeTriggers(database)
             }
+            UserPersonalityDecider.getDecider(temp)
         }
     }
 }

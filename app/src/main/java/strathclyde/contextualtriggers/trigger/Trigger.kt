@@ -22,7 +22,8 @@ class Trigger(
     private val iconKey = IconKey.valueOf(triggerWithContextConstraints.trigger.iconKey)
     private val active = triggerWithContextConstraints.trigger.active
     private val contextConstraintsMap: MutableMap<Context, MutableList<Constraint>> = mutableMapOf()
-
+    private val success = triggerWithContextConstraints.trigger.success
+    private val failure = triggerWithContextConstraints.trigger.failure
     private val notificationManager =
         application.getSystemService(android.content.Context.NOTIFICATION_SERVICE) as NotificationManager
 
