@@ -31,7 +31,8 @@ class Trigger(
     private val active = triggerWithContextConstraints.trigger.active
     private val contextConstraintsMap: MutableMap<Context, MutableList<Constraint>> = mutableMapOf()
     private val useProgressBar = triggerWithContextConstraints.trigger.useProgressBar
-    private val actionKeys = triggerWithContextConstraints.trigger.actionkeys
+    private val actionKeys: List<String> =
+        triggerWithContextConstraints.trigger.actionKeys.split(",")
     private val actionContentUri = triggerWithContextConstraints.trigger.actionContentUri
     private val progressContentUri = triggerWithContextConstraints.trigger.progressContentUri
 
