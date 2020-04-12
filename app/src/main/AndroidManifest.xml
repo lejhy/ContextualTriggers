@@ -3,6 +3,7 @@
           package="strathclyde.contextualtriggers">
 
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="com.google.android.gms.permission.ACTIVITY_RECOGNITION" />
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
@@ -29,6 +30,9 @@
                 android:name=".context.steps.StepsDetector"
                 android:exported="false"/>
 
+        <service android:name=".broadcasters.WeatherJobService"
+                android:permission="android.permission.BIND_JOB_SERVICE"
+                android:exported="true"/>
 
         <activity
                 android:name=".MainActivity"
