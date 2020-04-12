@@ -64,7 +64,7 @@ class UserPersonalityDecider(context: Context) {
         override fun doInBackground(vararg p0: UserPersonalityDecider?): Void? {
             val master = p0.first()
             master?.emotions?.forEach { master.userPersonalityDataDao.update(it) }
-            Log.d("AT HOME CONTEXT", "user-personality data saved" + (master?.emotions))
+            Log.d("AT HOME CONTEXT", "user-personality data saved${master?.emotions}")
             return null
         }
 
@@ -76,7 +76,7 @@ class UserPersonalityDecider(context: Context) {
 
             if (master != null)
                 master.emotions = master.userPersonalityDataDao.getAll()
-            Log.d("AT HOME CONTEXT", "user-personality data loaded" + (master?.emotions))
+            Log.d("AT HOME CONTEXT", "user-personality data loaded${master?.emotions}")
             return null
         }
 

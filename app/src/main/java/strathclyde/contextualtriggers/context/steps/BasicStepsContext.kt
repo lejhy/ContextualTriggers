@@ -30,7 +30,7 @@ class BasicStepsContext(
                     update(newStepsPercent)
                     lastSteps = currentSteps
                     Log.d("STEPS CONTEXT", "Updated")
-                    Log.d("Current Steps", "" + currentSteps)
+                    Log.d("Current Steps", "$currentSteps")
 
                 }
             }
