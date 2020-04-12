@@ -160,13 +160,14 @@ class DefaultData {
                 ),
                 Trigger(
                     title = "At Home",
-                    content = "UwU u is at home",
+                    content = "You are currently at home.",
                     iconKey = "NOTIFICATION_IMPORTANT",
                     active = true
                 )
             )
         }
 
+        @Suppress("UNCHECKED_CAST")
         class DBSave : AsyncTask<Any, Void, Void?>() {
             override fun doInBackground(vararg p0: Any?): Void? {
 

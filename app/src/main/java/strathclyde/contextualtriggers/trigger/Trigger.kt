@@ -50,15 +50,13 @@ class Trigger(
 
     fun update(context: Context, value: Int) {
         contextConstraintsMap[context]?.forEach { constraint ->
-//            Log.i("Trigger "+ title, "forEach first")
             constraint.evaluate(value)
         }
-//        Log.i("Trigger "+ title, "update")
+
         contextConstraintsMap.forEach { (_, constraints) ->
-//            Log.i("Trigger "+ title, "forEach second")
             if (!constraints.map { constraint -> constraint.state }.reduce { acc, state -> acc || state }) return
         }
-        Log.i("Trigger " + title, "notification")
+        Log.i("Trigger $title", "notification")
         createNotification()
     }
 
