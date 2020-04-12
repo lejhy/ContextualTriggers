@@ -7,8 +7,7 @@ import android.content.Intent
 import android.os.IBinder
 import android.util.Log
 import kotlinx.coroutines.*
-import strathclyde.contextualtriggers.broadcasters.WeatherBroadcast
-import strathclyde.contextualtriggers.context.*
+import strathclyde.contextualtriggers.context.Context
 import strathclyde.contextualtriggers.context.activity.*
 import strathclyde.contextualtriggers.context.battery.BatteryLevelContext
 import strathclyde.contextualtriggers.context.headphones.HeadphonesContext
@@ -44,7 +43,6 @@ class MainService : Service() {
             .build()
 
         startForeground(R.integer.contextualTriggersNotificationId, notification)
-        WeatherBroadcast(application).also { broadcast -> broadcast.start() } //TODO Make it context aware
 
         triggerWithContextConstraintsDao =
             MainDatabase.getInstance(this).triggerWithContextConstraintsDao

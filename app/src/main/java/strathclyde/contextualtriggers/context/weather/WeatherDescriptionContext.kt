@@ -5,8 +5,9 @@ import android.content.BroadcastReceiver
 import android.content.Intent
 import android.content.IntentFilter
 import android.util.Log
-import strathclyde.contextualtriggers.broadcasters.WeatherBroadcast
+import strathclyde.contextualtriggers.broadcasters.WeatherJobService.Companion.WEATHER_BROADCAST_ID
 import strathclyde.contextualtriggers.context.Context
+import strathclyde.contextualtriggers.utils.JobUtils
 
 abstract class WeatherDescriptionContext(
     private val application: Application,
@@ -29,7 +30,8 @@ abstract class WeatherDescriptionContext(
     }
 
     override fun onStart() {
-        application.registerReceiver(receiver, IntentFilter(WeatherBroadcast.WEATHER_BROADCAST_ID))
+        application.registerReceiver(receiver, IntentFilter(WEATHER_BROADCAST_ID))
+        JobUtils.startWeatherJob(application)
     }
 
     override fun onStop() {
