@@ -16,6 +16,7 @@ class Trigger(
     contexts: List<Context>,
     triggerWithContextConstraints: TriggerWithContextConstraints
 ) {
+
     private val title = triggerWithContextConstraints.trigger.title
     private val content = triggerWithContextConstraints.trigger.content
     private val altContent = triggerWithContextConstraints.trigger.altContent
@@ -61,24 +62,33 @@ class Trigger(
     }
 
     private fun createNotification() {
-        UserPersonalityDecider
+
         val notification: Notification =
-            if (altContent == "" || UserPersonalityDecider.getDecider(application.applicationContext)
-                    .isPositivePersonality()
+            if (altContent == "" || with(UserPersonalityDecider) {
+                    getDecider(application.applicationContext)
+                        .isPositivePersonality()
+                }
             ) {
-                Notification.Builder(application, application.getString(R.string.channel_id))
-                    .setContentTitle(title)
-                    .setContentText(content)
-                    .setSmallIcon(iconKey.resolveResource())
-                    .build()
+                createDefaultNotification()
             } else {
-                Notification.Builder(application, application.getString(R.string.channel_id))
-                    .setContentTitle(title)
-                    .setContentText(altContent)
-                    .setSmallIcon(iconKey.resolveResource())
-                    .build()
+                createAltNotification()
             }
 
         notificationManager.notify(R.integer.walkingNotificationId, notification)
     }
+
+    private fun createDefaultNotification(): Notification =
+        Notification.Builder(application, application.getString(R.string.channel_id))
+            .setContentTitle(title)
+            .setContentText(content)
+            .setSmallIcon(iconKey.resolveResource())
+            .build()
+
+    private fun createAltNotification(): Notification =
+        Notification.Builder(application, application.getString(R.string.channel_id))
+            .setContentTitle(title)
+            .setContentText(altContent)
+            .setSmallIcon(iconKey.resolveResource())
+            .build()
+
 }
