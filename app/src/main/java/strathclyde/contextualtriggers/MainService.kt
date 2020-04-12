@@ -7,6 +7,7 @@ import android.content.Intent
 import android.os.IBinder
 import android.util.Log
 import kotlinx.coroutines.*
+import strathclyde.contextualtriggers.UserPersonality.UserPersonalityDecider
 import strathclyde.contextualtriggers.context.Context
 import strathclyde.contextualtriggers.context.activity.*
 import strathclyde.contextualtriggers.context.battery.BatteryLevelContext
@@ -87,6 +88,7 @@ class MainService : Service() {
     }
 
     private fun initializeTriggers(database: MainDatabase) {
+        val temp = this
         scope.launch {
             var isFirstLaunch = true
             val triggerWithContextConstraints = withContext(Dispatchers.IO) {
@@ -101,6 +103,7 @@ class MainService : Service() {
                 DefaultData.setUpDefaultData(database)
                 initializeTriggers(database)
             }
+            UserPersonalityDecider.getDecider(temp)
         }
     }
 }

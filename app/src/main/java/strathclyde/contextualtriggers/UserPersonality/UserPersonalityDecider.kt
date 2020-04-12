@@ -22,9 +22,11 @@ class UserPersonalityDecider(context: Context) {
 
     fun isPositivePersonality(): Boolean {
         val emotional = emotions
+        Log.d("PERSONALITY", "Testing: " + (emotional == null).toString())
         if (emotional != null) {
             val motivated = emotional.first { e -> e.key == PersonalityKey.MOTIVATED.resolve() }
             val lazy = emotional.first { e -> e.key == PersonalityKey.LAZY.resolve() }
+            Log.d("PERSONALITY", "Motivation: " + motivated.value.toString() + " Lazy: " + lazy.value.toString())
             return motivated.value > lazy.value
         }
         return true
@@ -49,12 +51,12 @@ class UserPersonalityDecider(context: Context) {
             synchronized(this) {
                 var instance = deciderInstance
                 return if (instance == null) {
+                    Log.d("PERSONALITY", "New instance")
                     deciderInstance = UserPersonalityDecider(context)
                     instance = deciderInstance
                     instance!!
-                } else {
+                } else
                     instance
-                }
             }
         }
     }
@@ -64,7 +66,7 @@ class UserPersonalityDecider(context: Context) {
         override fun doInBackground(vararg p0: UserPersonalityDecider?): Void? {
             val master = p0.first()
             master?.emotions?.forEach { master.userPersonalityDataDao.update(it) }
-            Log.d("AT HOME CONTEXT", "user-personality data saved${master?.emotions}")
+            Log.d("PERSONALITY", "user-personality data saved${master?.emotions}")
             return null
         }
 
@@ -76,7 +78,7 @@ class UserPersonalityDecider(context: Context) {
 
             if (master != null)
                 master.emotions = master.userPersonalityDataDao.getAll()
-            Log.d("AT HOME CONTEXT", "user-personality data loaded${master?.emotions}")
+            Log.d("PERSONALITY", "user-personality data loaded${master?.emotions}")
             return null
         }
 

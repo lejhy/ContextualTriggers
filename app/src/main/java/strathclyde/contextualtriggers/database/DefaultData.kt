@@ -124,16 +124,7 @@ class DefaultData {
                 Trigger(
                     title = "Warm outside",
                     content = "Its warm outside...",
-                    iconKey = "NOTIFICATION_IMPORTANT",
-                    active = true,
-                    useProgressBar = false,
-                    actionKeys = "",
-                    progressContentUri = "",
-                    actionContentUri = ""
-                ),
-                Trigger(
-                    title = "Warm outside",
-                    content = "Its warm outside...",
+                    altContent = "Its warm outside, get walking!",
                     iconKey = "NOTIFICATION_IMPORTANT",
                     active = true,
                     useProgressBar = false,
