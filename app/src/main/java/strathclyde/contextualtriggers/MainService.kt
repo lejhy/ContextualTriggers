@@ -53,15 +53,8 @@ class MainService : Service() {
         val database = MainDatabase.getInstance(this)
         triggerWithContextConstraintsDao = database
             .triggerWithContextConstraintsDao
-
         initializeContexts()
-        initializeTriggers()
-
-        Log.d("SET_UP FIRST TIME", triggers.isEmpty().toString())
-        if(triggers.isEmpty()) {
-            setUpDefaultData(database)
-            initializeTriggers()
-        }
+        initializeTriggers(database)
     }
 
     private fun setUpDefaultData(database: MainDatabase) {
@@ -282,14 +275,20 @@ class MainService : Service() {
         )
     }
 
-    private fun initializeTriggers() {
+    private fun initializeTriggers(database: MainDatabase) {
         scope.launch {
+            var isFirstLaunch = true
             val triggerWithContextConstraints = withContext(Dispatchers.IO) {
                 triggerWithContextConstraintsDao.getAll()
             }
             triggerWithContextConstraints.forEach {
                 val trigger = Trigger(application, contexts, it)
+                isFirstLaunch = false
                 triggers.add(trigger)
+            }
+            if(isFirstLaunch) {
+                setUpDefaultData(database)
+                initializeTriggers(database)
             }
         }
     }
