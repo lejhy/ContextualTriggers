@@ -60,7 +60,7 @@ class Trigger(
         }
     }
 
-    fun update(context: Context, value: Int, callingContext: android.content.Context) {
+    fun update(context: Context, value: Int) {
         contextConstraintsMap[context]?.forEach { constraint ->
             constraint.evaluate(value)
         }
@@ -69,10 +69,10 @@ class Trigger(
             if (!constraints.map { constraint -> constraint.state }.reduce { acc, state -> acc || state }) return
         }
         Log.i("Trigger $title", "notification")
-        createNotification(callingContext)
+        createNotification()
     }
 
-    private fun createNotification(context: android.content.Context) {
+    private fun createNotification() {
         val notificiationBuilder = getBaseNotification()
 
         if (useProgressBar) {
