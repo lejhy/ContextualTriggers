@@ -23,6 +23,9 @@ class Trigger(
     private val iconKey = IconKey.valueOf(triggerWithContextConstraints.trigger.iconKey)
     private val active = triggerWithContextConstraints.trigger.active
     private val contextConstraintsMap: MutableMap<Context, MutableList<Constraint>> = mutableMapOf()
+    private val useProgressBar = triggerWithContextConstraints.trigger.useProgressBar
+    private val useBadging = triggerWithContextConstraints.trigger.useBadging
+    private val actionKeys = triggerWithContextConstraints.trigger.actionkeys
 
     private val notificationManager =
         application.getSystemService(android.content.Context.NOTIFICATION_SERVICE) as NotificationManager
