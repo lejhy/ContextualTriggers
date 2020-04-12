@@ -17,6 +17,6 @@ data class Trigger(
     var failure: Int = PersonalityKey.LAZY.resolve(),
     var useProgressBar: Boolean = false,
     var actionKeys: String = "",        // delimiter = ','
-    var progressContentUri: String,
-    var actionContentUri: String
+    var progressContentUri: String = "",
+    var actionContentUri: String = ""
 )
