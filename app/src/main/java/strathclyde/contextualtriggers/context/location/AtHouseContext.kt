@@ -16,8 +16,6 @@ class AtHouseContext(
 ) {
     private var history: MutableList<LocationEntry> = LinkedList()
     private lateinit var locationEntryDao: LocationEntryDao
-    private val dbLoad: DBLoad = DBLoad()
-    private val dbSave: DBSave = DBSave()
     private val tolerance: Double = 0.5
     override fun useLocation(lat: Double, long: Double): Int {
         //create region known as home location
@@ -36,7 +34,7 @@ class AtHouseContext(
         currentLocation.lat = lat
         currentLocation.lon = long
         history.add(currentLocation)
-        dbSave.execute(this)
+        DBSave().execute(this)
         var home: Pair<Double, Double> = Pair(0.0, 0.0)
         val mapping: MutableMap<Pair<Double, Double>, Int> = HashMap()
         for (current in history) {
@@ -57,12 +55,12 @@ class AtHouseContext(
     override fun onStart() {
         super.onStart()
         locationEntryDao = MainDatabase.getInstance(super.application).locationEntryDao
-        dbLoad.execute(this)
+        DBLoad().execute(this)
     }
 
     override fun onStop() {
         super.onStop()
-        dbSave.execute(this)
+        DBSave().execute(this)
     }
 
     class DBSave : AsyncTask<AtHouseContext, Void, Void?>() {
