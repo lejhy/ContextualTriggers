@@ -2,7 +2,7 @@ package strathclyde.contextualtriggers.database
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import androidx.room.Ignore
+import strathclyde.contextualtriggers.enums.PersonalityKey
 
 @Entity
 data class Trigger(
@@ -11,5 +11,8 @@ data class Trigger(
     var title: String = "",
     var content: String = "",
     var iconKey: String = "",
-    var active: Boolean = false
+    var active: Boolean = false,
+    var altContent: String = "",
+    var success: Int = PersonalityKey.MOTIVATED.resolve(),
+    var failure: Int = PersonalityKey.LAZY.resolve()
 )

@@ -4,19 +4,25 @@ import android.app.Notification
 import android.app.PendingIntent
 import android.app.Service
 import android.content.Intent
+import android.os.AsyncTask
 import android.os.IBinder
 import android.util.Log
 import kotlinx.coroutines.*
 import strathclyde.contextualtriggers.context.Context
 import strathclyde.contextualtriggers.context.activity.*
 import strathclyde.contextualtriggers.context.battery.BatteryLevelContext
+import strathclyde.contextualtriggers.context.location.AtHouseContext
 import strathclyde.contextualtriggers.context.headphones.HeadphonesContext
 import strathclyde.contextualtriggers.context.steps.BasicStepsContext
 import strathclyde.contextualtriggers.context.time.TimeContext
 import strathclyde.contextualtriggers.context.weather.*
+import strathclyde.contextualtriggers.database.DefaultData
 import strathclyde.contextualtriggers.database.MainDatabase
 import strathclyde.contextualtriggers.database.TriggerWithContextConstraintsDao
+import strathclyde.contextualtriggers.database.UserPersonalityData
+import strathclyde.contextualtriggers.enums.PersonalityKey
 import strathclyde.contextualtriggers.trigger.Trigger
+import java.util.*
 
 class MainService : Service() {
 
@@ -43,11 +49,11 @@ class MainService : Service() {
             .build()
 
         startForeground(R.integer.contextualTriggersNotificationId, notification)
-
-        triggerWithContextConstraintsDao =
-            MainDatabase.getInstance(this).triggerWithContextConstraintsDao
+        val database = MainDatabase.getInstance(this)
+        triggerWithContextConstraintsDao = database
+            .triggerWithContextConstraintsDao
         initializeContexts()
-        initializeTriggers()
+        initializeTriggers(database)
     }
 
     override fun onDestroy() {
@@ -77,21 +83,27 @@ class MainService : Service() {
                 CloudsContext(application),
                 BatteryLevelContext(application),
                 HeadphonesContext(application),
-
                 TimeContext(application),
-                BasicStepsContext(application)
+                BasicStepsContext(application),
+                AtHouseContext(application)
             )
         )
     }
 
-    private fun initializeTriggers() {
+    private fun initializeTriggers(database: MainDatabase) {
         scope.launch {
+            var isFirstLaunch = true
             val triggerWithContextConstraints = withContext(Dispatchers.IO) {
                 triggerWithContextConstraintsDao.getAll()
             }
             triggerWithContextConstraints.forEach {
                 val trigger = Trigger(application, contexts, it)
+                isFirstLaunch = false
                 triggers.add(trigger)
+            }
+            if(isFirstLaunch) {
+                DefaultData.setUpDefaultData(database)
+                initializeTriggers(database)
             }
         }
     }

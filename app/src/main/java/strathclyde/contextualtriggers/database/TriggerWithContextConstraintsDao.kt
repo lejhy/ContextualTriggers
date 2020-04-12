@@ -27,4 +27,6 @@ abstract class TriggerWithContextConstraintsDao {
 
     @Insert
     protected abstract fun insertTrigger(trigger: Trigger): Long
+    @Insert
+    abstract fun insertTriggers(trigger: List<Trigger>)
 }
