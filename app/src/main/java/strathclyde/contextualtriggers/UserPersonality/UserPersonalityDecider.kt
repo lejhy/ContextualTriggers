@@ -1,6 +1,5 @@
 package strathclyde.contextualtriggers.UserPersonality
 
-import android.app.Application
 import android.content.Context
 import android.os.AsyncTask
 import android.util.Log
@@ -67,7 +66,7 @@ class UserPersonalityDecider(context: Context) {
         override fun doInBackground(vararg p0: UserPersonalityDecider?): Void? {
             val master = p0.first()
             master?.emotions?.forEach { master.userPersonalityDataDao.update(it) }
-            Log.d("PERSONALITY", "I Store emotions " + (master?.emotions))
+            Log.d("PERSONALITY", "user-personality data saved${master?.emotions}")
             return null
         }
 
@@ -79,7 +78,7 @@ class UserPersonalityDecider(context: Context) {
 
             if (master != null)
                 master.emotions = master.userPersonalityDataDao.getAll()
-            Log.d("PERSONALITY", "I Have emotions" + (master?.emotions))
+            Log.d("PERSONALITY", "user-personality data loaded${master?.emotions}")
             return null
         }
 

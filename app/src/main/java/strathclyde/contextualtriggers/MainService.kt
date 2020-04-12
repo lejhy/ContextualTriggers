@@ -9,8 +9,7 @@ import android.os.IBinder
 import android.util.Log
 import kotlinx.coroutines.*
 import strathclyde.contextualtriggers.UserPersonality.UserPersonalityDecider
-import strathclyde.contextualtriggers.broadcasters.WeatherBroadcast
-import strathclyde.contextualtriggers.context.*
+import strathclyde.contextualtriggers.context.Context
 import strathclyde.contextualtriggers.context.activity.*
 import strathclyde.contextualtriggers.context.battery.BatteryLevelContext
 import strathclyde.contextualtriggers.context.location.AtHouseContext
@@ -51,14 +50,12 @@ class MainService : Service() {
             .build()
 
         startForeground(R.integer.contextualTriggersNotificationId, notification)
-        WeatherBroadcast(application).also { broadcast -> broadcast.start() } //TODO Make it context aware
         val database = MainDatabase.getInstance(this)
         triggerWithContextConstraintsDao = database
             .triggerWithContextConstraintsDao
         initializeContexts()
         initializeTriggers(database)
     }
-
 
     override fun onDestroy() {
         super.onDestroy()

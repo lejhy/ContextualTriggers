@@ -23,7 +23,7 @@ class BatteryLevelContext(
                 if (batterLevel != newBatterLevel) {
                     update(newBatterLevel)
                     batterLevel = newBatterLevel
-                    Log.d("BATTERY CONTEXT", "Updated")
+                    Log.d("BATTERY CONTEXT", "Updated $batterLevel")
                 }
             }
         }
