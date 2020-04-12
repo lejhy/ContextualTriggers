@@ -8,14 +8,14 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import strathclyde.contextualtriggers.api.RetrofitBuilder
-import strathclyde.contextualtriggers.models.WeatherResponse
+import strathclyde.contextualtriggers.models.IWeatherResponse
 
 class WeatherJobService : JobService() {
     companion object {
         const val WEATHER_BROADCAST_ID = "strathclyde.contextualtriggers.broadcast.WEATHER"
     }
 
-    private var cachedWeatherResponse: WeatherResponse? = null
+    private var cachedWeatherResponse: IWeatherResponse? = null
 
     override fun onStartJob(params: JobParameters?): Boolean {
         if (params != null) {
@@ -64,7 +64,7 @@ class WeatherJobService : JobService() {
         }
     }
 
-    private fun broadcastWeather(weatherResponse: WeatherResponse) {
+    private fun broadcastWeather(weatherResponse: IWeatherResponse) {
         Intent().also { intent ->
             intent.action = WEATHER_BROADCAST_ID
             intent.putExtra("weather", weatherResponse.weather?.get(0)?.main)

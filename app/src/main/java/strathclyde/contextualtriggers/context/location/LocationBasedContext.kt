@@ -1,4 +1,4 @@
-package strathclyde.contextualtriggers.context.location;
+package strathclyde.contextualtriggers.context.location
 
 import android.app.Application
 import android.content.BroadcastReceiver
@@ -23,7 +23,7 @@ abstract class LocationBasedContext(
     private val receiver = object : BroadcastReceiver() {
         override fun onReceive(context: android.content.Context, intent: Intent?) {
             intent?.let {
-                Log.d("LOCATION BASED CONTEXT", "UwU i got called")
+                Log.d("LOCATION BASED CONTEXT", "location-based context called")
                 var longitude = 0.0
                 var latitude = 0.0
                 if (
@@ -54,13 +54,13 @@ abstract class LocationBasedContext(
             receiver,
             IntentFilter(Intent.ACTION_TIME_TICK)
         ) //Calls intent every minute
-        Log.d("LOCATION BASED CONTEXT", "UwU i is swartin")
+        Log.d("LOCATION BASED CONTEXT", "location-based context started")
 
     }
 
     override fun onStop() {
         application.unregisterReceiver(receiver)
-        Log.d("LOCATION BASED CONTEXT", "UwU i is stoppin")
+        Log.d("LOCATION BASED CONTEXT", "location-based context stopped")
 
     }
 }

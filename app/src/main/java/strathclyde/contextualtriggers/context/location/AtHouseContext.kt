@@ -17,12 +17,12 @@ class AtHouseContext(
     private var history: MutableList<LocationEntry> = LinkedList()
     private lateinit var locationEntryDao: LocationEntryDao
     private val dbLoad: DBLoad = DBLoad()
-    val dbSave: DBSave = DBSave()
+    private val dbSave: DBSave = DBSave()
     private val tolerance: Double = 0.5
     override fun useLocation(lat: Double, long: Double): Int {
         //create region known as home location
         val home: Pair<Double, Double> = getHomeLocation(lat, long)
-        //check if lat lon in in tollerance for home region
+        //check if lat lon in in tolerance for home region
         return if (
             lat + tolerance > home.first &&
             lat - tolerance < home.first &&
@@ -40,9 +40,9 @@ class AtHouseContext(
         var home: Pair<Double, Double> = Pair(0.0, 0.0)
         val mapping: MutableMap<Pair<Double, Double>, Int> = HashMap()
         for (current in history) {
-            val locationInstace = Pair(current.lat, current.lon)
-            if (mapping.contains(locationInstace))
-                mapping.replace(locationInstace, mapping.getValue(locationInstace) + 1)
+            val locationInstance = Pair(current.lat, current.lon)
+            if (mapping.contains(locationInstance))
+                mapping.replace(locationInstance, mapping.getValue(locationInstance) + 1)
         }
         var max = 0
         for (current in mapping.entries)
@@ -69,7 +69,7 @@ class AtHouseContext(
         override fun doInBackground(vararg p0: AtHouseContext?): Void? {
             val master = p0.first()
             master?.history?.forEach { master.locationEntryDao.update(it) }
-            Log.d("AT HOME CONTEXT", "UwU i save history " + (master?.history))
+            Log.d("AT HOME CONTEXT", "save history ${master?.history}")
             return null
         }
 
@@ -81,7 +81,7 @@ class AtHouseContext(
 
             if (master != null)
                 master.history = master.locationEntryDao.getAll()
-            Log.d("AT HOME CONTEXT", "UwU i got history " + (master?.history))
+            Log.d("AT HOME CONTEXT", "fetch history ${master?.history}")
             return null
         }
 
