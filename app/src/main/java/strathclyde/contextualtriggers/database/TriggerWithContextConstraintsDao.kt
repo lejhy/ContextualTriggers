@@ -25,8 +25,8 @@ abstract class TriggerWithContextConstraintsDao {
     }
 
     @Transaction
-    @Query("SELECT * FROM `Trigger` WHERE title = :title")
-    abstract fun get(title: String): TriggerWithContextConstraints?
+    @Query("SELECT * FROM `Trigger` WHERE owner = :owner AND title = :title")
+    abstract fun get(owner: String, title: String): TriggerWithContextConstraints?
 
     fun deleteTriggerWithContextConstraints(triggerWithContextConstraints: TriggerWithContextConstraints): Boolean {
         val trigger = triggerWithContextConstraints.trigger
