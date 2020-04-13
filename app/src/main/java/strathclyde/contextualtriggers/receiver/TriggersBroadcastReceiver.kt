@@ -25,10 +25,10 @@ class TriggersBroadcastReceiver : BroadcastReceiver() {
                 try {
                     val title = intent.getStringExtra("title")!!
                     val datasource = MainDatabase.getInstance(context)
-                    val triggerWithContextConstraints = withContext(Dispatchers.IO) {
+                    val existingTriggerWithContextConstraints = withContext(Dispatchers.IO) {
                         datasource.triggerWithContextConstraintsDao.get(title)
                     }
-                    if (triggerWithContextConstraints == null) {
+                    if (existingTriggerWithContextConstraints == null) {
                         val trigger = Trigger(
                             0L,
                             title,
@@ -37,7 +37,7 @@ class TriggersBroadcastReceiver : BroadcastReceiver() {
                             intent.getBooleanExtra("active", true)
                         )
                         if (intent.getBooleanExtra("useProgressBar", false)) {
-                            trigger.useProgressBar = true;
+                            trigger.useProgressBar = true
                             trigger.progressContentUri = intent.getStringExtra("progressContentUri")!!
                         }
                         val actionKeys = intent.getStringExtra("actionKeys")
