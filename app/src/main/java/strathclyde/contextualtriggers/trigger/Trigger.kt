@@ -5,6 +5,7 @@ import android.app.Notification
 import android.app.Notification.Action.Builder
 import android.app.NotificationManager
 import android.app.PendingIntent
+import android.content.ComponentName
 import android.content.Intent
 import android.net.Uri
 import android.util.Log
@@ -23,7 +24,7 @@ class Trigger(
     contexts: List<Context>,
     triggerWithContextConstraints: TriggerWithContextConstraints
 ) {
-
+    private val owner = triggerWithContextConstraints.trigger.owner
     private val title = triggerWithContextConstraints.trigger.title
     private val content = triggerWithContextConstraints.trigger.content
     private val altContent = triggerWithContextConstraints.trigger.altContent
@@ -113,7 +114,8 @@ class Trigger(
     ): List<Notification.Action> {
 
         return actionKeys.map {
-            val actionIntent = Intent(it, Uri.parse(uri))
+            val actionIntent = Intent(it)
+                .setComponent(ComponentName(owner, uri))
             val pendingActionIntent: PendingIntent =
                 PendingIntent.getBroadcast(application, 0, actionIntent, 0)
             Builder(iconKey.resolveResource(), it, pendingActionIntent).build()

@@ -8,6 +8,7 @@ import strathclyde.contextualtriggers.enums.PersonalityKey
 data class Trigger(
     @PrimaryKey(autoGenerate = true)
     var id: Long = 0L,
+    var owner: String = "",
     var title: String = "",
     var content: String = "",
     var iconKey: String = "",

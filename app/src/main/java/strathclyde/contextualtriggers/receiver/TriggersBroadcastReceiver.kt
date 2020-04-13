@@ -23,14 +23,16 @@ class TriggersBroadcastReceiver : BroadcastReceiver() {
         when (intent.action) {
             newTriggerAction -> uiScope.launch {
                 try {
+                    val owner = intent.getStringExtra("owner")!!
                     val title = intent.getStringExtra("title")!!
                     val datasource = MainDatabase.getInstance(context)
                     val existingTriggerWithContextConstraints = withContext(Dispatchers.IO) {
-                        datasource.triggerWithContextConstraintsDao.get(title)
+                        datasource.triggerWithContextConstraintsDao.get(owner, title)
                     }
                     if (existingTriggerWithContextConstraints == null) {
                         val trigger = Trigger(
                             0L,
+                            owner,
                             title,
                             intent.getStringExtra("content")!!,
                             intent.getStringExtra("iconKey")!!,
@@ -68,9 +70,6 @@ class TriggersBroadcastReceiver : BroadcastReceiver() {
                             datasource.triggerWithContextConstraintsDao.insertTriggerWithContextConstraints(
                                 triggerWithContextConstraints
                             )
-                            datasource.triggerWithContextConstraintsDao.get(trigger.title)?.let {
-                                Log.i(it.trigger.title, it.trigger.content)
-                            }
                         }
                         Log.i("TriggersBroadcastReceiver", "New trigger created...")
                     } else {
@@ -85,10 +84,11 @@ class TriggersBroadcastReceiver : BroadcastReceiver() {
             }
             deleteTriggerAction -> uiScope.launch {
                 try {
+                    val owner = intent.getStringExtra("owner")!!
                     val title = intent.getStringExtra("title")!!
                     val datasource = MainDatabase.getInstance(context)
                     withContext(Dispatchers.IO) {
-                        val triggerWithContextConstraints = datasource.triggerWithContextConstraintsDao.get(title)!!
+                        val triggerWithContextConstraints = datasource.triggerWithContextConstraintsDao.get(owner, title)!!
                         datasource.triggerWithContextConstraintsDao.deleteTriggerWithContextConstraints(
                             triggerWithContextConstraints
                         )
