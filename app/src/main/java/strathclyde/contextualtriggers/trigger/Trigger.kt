@@ -122,9 +122,16 @@ class Trigger(
 
 
     private fun requestProgressBarValues(progressContentUri: String): Triple<Int, Int, Boolean> {
-//        val progressIntent = Intent("PROGRESS", Uri.parse(progressContentUri) )
-//        progressIntent.
-        return Triple(50, 100, true)
+        var result = Triple(0, 100, true)
+        val cursor = application.contentResolver.query(Uri.parse(progressContentUri), null, null, null, null)
+        cursor?.apply {
+            moveToFirst()
+            val value = getInt(0)
+            val max = getInt(1)
+            result = Triple(value, max, max == 0)
+            close()
+        }
+        return result
     }
 
     private fun getBaseNotification() =
