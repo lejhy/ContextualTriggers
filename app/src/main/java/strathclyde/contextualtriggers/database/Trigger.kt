@@ -13,8 +13,8 @@ data class Trigger(
     var iconKey: String = "",
     var active: Boolean = false,
     var altContent: String = "",
-    var success: Int = PersonalityKey.MOTIVATED.resolve(),
-    var failure: Int = PersonalityKey.LAZY.resolve(),
+    var success: Int = PersonalityKey.DEFAULT.resolve(),
+    var failure: Int = PersonalityKey.DEFAULT.resolve(),
     var useProgressBar: Boolean = false,
     var actionKeys: String = "",        // delimiter = ','
     var progressContentUri: String = "",
