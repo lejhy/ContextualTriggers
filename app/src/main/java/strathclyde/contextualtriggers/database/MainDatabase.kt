@@ -8,7 +8,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 
 @Database(
     entities = [Trigger::class, ContextConstraint::class, LocationEntry::class, UserPersonalityData::class],
-    version = 5,
+    version = 7,
     exportSchema = false
 )
 

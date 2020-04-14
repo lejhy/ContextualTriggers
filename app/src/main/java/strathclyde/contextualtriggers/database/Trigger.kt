@@ -8,6 +8,7 @@ import strathclyde.contextualtriggers.enums.PersonalityKey
 data class Trigger(
     @PrimaryKey(autoGenerate = true)
     var id: Long = 0L,
+    var owner: String = "",
     var title: String = "",
     var content: String = "",
     var iconKey: String = "",
@@ -19,6 +20,6 @@ data class Trigger(
     //These will be queried from listening apps when triggers fire.
     var useProgressBar: Boolean = false,
     var actionKeys: String = "",        // delimiter = ','
-    var progressContentUri: String,
-    var actionContentUri: String
+    var progressContentUri: String = "",
+    var actionContentUri: String = ""
 )

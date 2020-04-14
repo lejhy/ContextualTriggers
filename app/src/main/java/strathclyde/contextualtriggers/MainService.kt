@@ -6,6 +6,8 @@ import android.app.Service
 import android.content.Intent
 import android.os.IBinder
 import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.Observer
 import kotlinx.coroutines.*
 import strathclyde.contextualtriggers.UserPersonality.UserPersonalityDecider
 import strathclyde.contextualtriggers.context.Context
@@ -18,6 +20,7 @@ import strathclyde.contextualtriggers.context.time.TimeContext
 import strathclyde.contextualtriggers.context.weather.*
 import strathclyde.contextualtriggers.database.DefaultData
 import strathclyde.contextualtriggers.database.MainDatabase
+import strathclyde.contextualtriggers.database.TriggerWithContextConstraints
 import strathclyde.contextualtriggers.database.TriggerWithContextConstraintsDao
 import strathclyde.contextualtriggers.trigger.Trigger
 
@@ -28,7 +31,9 @@ class MainService : Service() {
 
     private var job = Job()
     private val scope = CoroutineScope(Dispatchers.Main + job)
+    private lateinit var database: MainDatabase
     private lateinit var triggerWithContextConstraintsDao: TriggerWithContextConstraintsDao
+    private lateinit var triggerWithContextConstraints: LiveData<List<TriggerWithContextConstraints>>
 
     override fun onCreate() {
         super.onCreate()
@@ -46,11 +51,11 @@ class MainService : Service() {
             .build()
 
         startForeground(R.integer.contextualTriggersNotificationId, notification)
-        val database = MainDatabase.getInstance(this)
+        database = MainDatabase.getInstance(this)
         triggerWithContextConstraintsDao = database
             .triggerWithContextConstraintsDao
         initializeContexts()
-        initializeTriggers(database)
+        initializeTriggers()
     }
 
     override fun onDestroy() {
@@ -87,23 +92,30 @@ class MainService : Service() {
         )
     }
 
-    private fun initializeTriggers(database: MainDatabase) {
+    private fun initializeTriggers() {
         val temp = this
         scope.launch {
-            var isFirstLaunch = true
-            val triggerWithContextConstraints = withContext(Dispatchers.IO) {
-                triggerWithContextConstraintsDao.getAll()
+            triggerWithContextConstraints = withContext(Dispatchers.IO) {
+                triggerWithContextConstraintsDao.getAllObservable()
             }
-            triggerWithContextConstraints.forEach {
-                val trigger = Trigger(application, contexts, it)
-                isFirstLaunch = false
-                triggers.add(trigger)
-            }
-            if(isFirstLaunch) {
-                DefaultData.setUpDefaultData(database)
-                initializeTriggers(database)
-            }
+            triggerWithContextConstraints.observeForever(triggerDbCallback)
             UserPersonalityDecider.getDecider(temp)
+        }
+    }
+
+    private val triggerDbCallback = Observer<List<TriggerWithContextConstraints>> { list ->
+        if (list.isEmpty()) {
+            DefaultData.setUpDefaultData(database)
+            initializeTriggers()
+        } else {
+            triggers.forEach { it.onDestroy() }
+            triggers.removeAll { true }
+            list.forEach {
+                if (it.trigger.active) {
+                    val trigger = Trigger(application, contexts, it)
+                    triggers.add(trigger)
+                }
+            }
         }
     }
 }

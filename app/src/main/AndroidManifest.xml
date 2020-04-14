@@ -45,6 +45,14 @@
             </intent-filter>
         </activity>
 
+        <receiver android:name=".receiver.TriggersBroadcastReceiver">
+            <intent-filter>
+                <action android:name="strathclyde.contextualtriggers.intent.action.NEW_TRIGGER"/>
+                <action android:name="strathclyde.contextualtriggers.intent.action.UPDATE_TRIGGER"/>
+                <action android:name="strathclyde.contextualtriggers.intent.action.DELETE_TRIGGER"/>
+            </intent-filter>
+        </receiver>
+
     </application>
 
 </manifest>

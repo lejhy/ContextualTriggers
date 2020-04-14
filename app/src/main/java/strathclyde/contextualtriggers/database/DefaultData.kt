@@ -32,6 +32,7 @@ class DefaultData {
         private fun setUpDefaultTriggers(): List<Trigger> {
             return listOf(
                 Trigger(
+                    owner = "strathclyde.contextualtriggers",
                     title = "In Vehicle",
                     content = "You are in vehicle...",
                     iconKey = "NOTIFICATION_IMPORTANT",
@@ -42,6 +43,7 @@ class DefaultData {
                     actionContentUri = ""
                 ),
                 Trigger(
+                    owner = "strathclyde.contextualtriggers",
                     title = "On Bicycle",
                     content = "You are on bicycle...",
                     iconKey = "NOTIFICATION_IMPORTANT",
@@ -52,6 +54,7 @@ class DefaultData {
                     actionContentUri = ""
                 ),
                 Trigger(
+                    owner = "strathclyde.contextualtriggers",
                     title = "On Foot",
                     content = "You are on foot...",
                     iconKey = "NOTIFICATION_IMPORTANT",
@@ -62,6 +65,7 @@ class DefaultData {
                     actionContentUri = ""
                 ),
                 Trigger(
+                    owner = "strathclyde.contextualtriggers",
                     title = "Running",
                     content = "You are running...",
                     iconKey = "NOTIFICATION_IMPORTANT",
@@ -72,6 +76,7 @@ class DefaultData {
                     actionContentUri = ""
                 ),
                 Trigger(
+                    owner = "strathclyde.contextualtriggers",
                     title = "Still",
                     content = "You are still...",
                     iconKey = "NOTIFICATION_IMPORTANT",
@@ -82,6 +87,7 @@ class DefaultData {
                     actionContentUri = ""
                 ),
                 Trigger(
+                    owner = "strathclyde.contextualtriggers",
                     title = "Walking",
                     content = "You are walking...",
                     iconKey = "NOTIFICATION_IMPORTANT",
@@ -92,6 +98,7 @@ class DefaultData {
                     actionContentUri = ""
                 ),
                 Trigger(
+                    owner = "strathclyde.contextualtriggers",
                     title = "Sunny",
                     content = "The weather is sunny...",
                     iconKey = "NOTIFICATION_IMPORTANT",
@@ -102,6 +109,7 @@ class DefaultData {
                     actionContentUri = ""
                 ),
                 Trigger(
+                    owner = "strathclyde.contextualtriggers",
                     title = "Haze",
                     content = "There is haze outside....",
                     iconKey = "NOTIFICATION_IMPORTANT",
@@ -112,6 +120,7 @@ class DefaultData {
                     actionContentUri = ""
                 ),
                 Trigger(
+                    owner = "strathclyde.contextualtriggers",
                     title = "Rain",
                     content = "Its raining outside...",
                     iconKey = "NOTIFICATION_IMPORTANT",
@@ -122,6 +131,7 @@ class DefaultData {
                     actionContentUri = ""
                 ),
                 Trigger(
+                    owner = "strathclyde.contextualtriggers",
                     title = "Warm outside",
                     content = "Its warm outside...",
                     altContent = "Its warm outside, get walking!",
@@ -133,6 +143,7 @@ class DefaultData {
                     actionContentUri = ""
                 ),
                 Trigger(
+                    owner = "strathclyde.contextualtriggers",
                     title = "Battery good",
                     content = "Battery above 80%'",
                     altContent = "Keep your phone charged!",
@@ -144,6 +155,7 @@ class DefaultData {
                     actionContentUri = ""
                 ),
                 Trigger(
+                    owner = "strathclyde.contextualtriggers",
                     title = "Headphones",
                     content = "Headphones are plugged in...",
                     iconKey = "NOTIFICATION_IMPORTANT",
@@ -154,6 +166,7 @@ class DefaultData {
                     actionContentUri = ""
                 ),
                 Trigger(
+                    owner = "strathclyde.contextualtriggers",
                     title = "Day",
                     content = "Day changed",
                     iconKey = "NOTIFICATION_IMPORTANT",
@@ -164,6 +177,7 @@ class DefaultData {
                     actionContentUri = ""
                 ),
                 Trigger(
+                    owner = "strathclyde.contextualtriggers",
                     title = "Weekend",
                     content = "Day changed to a saturday or sunday",
                     iconKey = "NOTIFICATION_IMPORTANT",
@@ -173,6 +187,7 @@ class DefaultData {
                     progressContentUri = "",
                     actionContentUri = ""
                 ), Trigger(
+                    owner = "strathclyde.contextualtriggers",
                     title = "Morning",
                     content = "Is morning",
                     iconKey = "NOTIFICATION_IMPORTANT",
@@ -182,6 +197,7 @@ class DefaultData {
                     progressContentUri = "",
                     actionContentUri = ""
                 ), Trigger(
+                    owner = "strathclyde.contextualtriggers",
                     title = "Not Evening",
                     content = "Is not evening",
                     iconKey = "NOTIFICATION_IMPORTANT",
@@ -192,6 +208,7 @@ class DefaultData {
                     actionContentUri = ""
                 ),
                 Trigger(
+                    owner = "strathclyde.contextualtriggers",
                     title = "Half-way done",
                     content = "You have completed half of your steps! Keep going!",
                     iconKey = "NOTIFICATION_IMPORTANT",
@@ -202,6 +219,7 @@ class DefaultData {
                     actionContentUri = ""
                 ),
                 Trigger(
+                    owner = "strathclyde.contextualtriggers",
                     title = "Steps completed",
                     content = "You completed your steps! Good job!",
                     iconKey = "NOTIFICATION_IMPORTANT",
@@ -212,6 +230,7 @@ class DefaultData {
                     actionContentUri = ""
                 ),
                 Trigger(
+                    owner = "strathclyde.contextualtriggers",
                     title = "Wind speed",
                     content = "There is little wind",
                     iconKey = "NOTIFICATION_IMPORTANT",
@@ -222,6 +241,7 @@ class DefaultData {
                     actionContentUri = ""
                 ),
                 Trigger(
+                    owner = "strathclyde.contextualtriggers",
                     title = "Clouds",
                     content = "There is no or little clouds",
                     iconKey = "NOTIFICATION_IMPORTANT",
@@ -232,6 +252,7 @@ class DefaultData {
                     actionContentUri = ""
                 ),
                 Trigger(
+                    owner = "strathclyde.contextualtriggers",
                     title = "At Home",
                     content = "You are currently at home.",
                     iconKey = "NOTIFICATION_IMPORTANT",

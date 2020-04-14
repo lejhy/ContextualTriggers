@@ -5,6 +5,7 @@ import android.app.Notification
 import android.app.Notification.Action.Builder
 import android.app.NotificationManager
 import android.app.PendingIntent
+import android.content.ComponentName
 import android.content.Intent
 import android.net.Uri
 import android.util.Log
@@ -23,12 +24,11 @@ class Trigger(
     contexts: List<Context>,
     triggerWithContextConstraints: TriggerWithContextConstraints
 ) {
-
+    private val owner = triggerWithContextConstraints.trigger.owner
     private val title = triggerWithContextConstraints.trigger.title
     private val content = triggerWithContextConstraints.trigger.content
     private val altContent = triggerWithContextConstraints.trigger.altContent
     private val iconKey = IconKey.valueOf(triggerWithContextConstraints.trigger.iconKey)
-    private val active = triggerWithContextConstraints.trigger.active
     private val contextConstraintsMap: MutableMap<Context, MutableList<Constraint>> = mutableMapOf()
     private val success = triggerWithContextConstraints.trigger.success
     private val failure = triggerWithContextConstraints.trigger.failure
@@ -52,7 +52,7 @@ class Trigger(
             if (constraintList == null) {
                 constraintList = mutableListOf()
                 contextConstraintsMap[context] = constraintList
-                if (active) context.register(this) //TODO dynamic activation and deactivation
+                context.register(this)
             }
             constraintList.add(
                 Constraint(
@@ -60,6 +60,12 @@ class Trigger(
                     constraint.greaterThanOrEqualTo
                 )
             )
+        }
+    }
+
+    fun onDestroy() {
+        contextConstraintsMap.forEach { (t, _) ->
+            t.unregister(this)
         }
     }
 
@@ -108,7 +114,8 @@ class Trigger(
     ): List<Notification.Action> {
 
         return actionKeys.map {
-            val actionIntent = Intent(it, Uri.parse(uri))
+            val actionIntent = Intent(it)
+                .setComponent(ComponentName(owner, uri))
             val pendingActionIntent: PendingIntent =
                 PendingIntent.getBroadcast(application, 0, actionIntent, 0)
             Builder(iconKey.resolveResource(), it, pendingActionIntent).build()
@@ -117,9 +124,16 @@ class Trigger(
 
 
     private fun requestProgressBarValues(progressContentUri: String): Triple<Int, Int, Boolean> {
-//        val progressIntent = Intent("PROGRESS", Uri.parse(progressContentUri) )
-//        progressIntent.
-        return Triple(50, 100, true)
+        var result = Triple(0, 100, true)
+        val cursor = application.contentResolver.query(Uri.parse(progressContentUri), null, null, null, null)
+        cursor?.apply {
+            moveToFirst()
+            val value = getInt(0)
+            val max = getInt(1)
+            result = Triple(value, max, max == 0)
+            close()
+        }
+        return result
     }
 
     private fun getBaseNotification() =
