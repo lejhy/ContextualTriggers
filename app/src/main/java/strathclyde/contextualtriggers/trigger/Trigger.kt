@@ -11,6 +11,7 @@ import strathclyde.contextualtriggers.context.Context
 import strathclyde.contextualtriggers.database.TriggerWithContextConstraints
 import strathclyde.contextualtriggers.enums.ContextKey
 import strathclyde.contextualtriggers.enums.IconKey
+import strathclyde.contextualtriggers.enums.PersonalityKey
 import kotlin.collections.component1
 import kotlin.collections.component2
 import kotlin.collections.set
@@ -27,8 +28,8 @@ class Trigger(
     private val altContent = triggerWithContextConstraints.trigger.altContent
     private val iconKey = IconKey.valueOf(triggerWithContextConstraints.trigger.iconKey)
     private val contextConstraintsMap: MutableMap<Context, MutableList<Constraint>> = mutableMapOf()
-    private val success = triggerWithContextConstraints.trigger.success
-    private val failure = triggerWithContextConstraints.trigger.failure
+    private val completionKey = triggerWithContextConstraints.trigger.completionKey
+    private val completionValue = triggerWithContextConstraints.trigger.completionValue
     private val useProgressBar = triggerWithContextConstraints.trigger.useProgressBar
     private val actionKeys: List<String> =
         triggerWithContextConstraints.trigger.actionKeys.split(",")
@@ -78,6 +79,11 @@ class Trigger(
 
 
         Log.i("Trigger $title", "notification")
+        if (completionKey != PersonalityKey.DEFAULT.resolve() && completionValue != 0)
+            UserPersonalityDecider.getDecider(application.applicationContext).updatePersonality(
+                completionKey,
+                completionValue
+            )
         createNotification()
     }
 
@@ -92,6 +98,10 @@ class Trigger(
             requestActionKeyValues(actionContentUri, actionKeys).forEach {
                 notificationBuilder.addAction(it)
             }
+        }
+
+        if (content == "") {
+            Log.d("CreateNotification", "Content is null")
         }
         val notification: Notification =
             if (altContent == "" || UserPersonalityDecider.getDecider(application.applicationContext).isPositivePersonality()) {

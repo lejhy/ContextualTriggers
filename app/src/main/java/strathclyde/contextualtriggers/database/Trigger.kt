@@ -13,9 +13,11 @@ data class Trigger(
     var content: String = "",
     var iconKey: String = "",
     var active: Boolean = false,
+
+    //User Personality
     var altContent: String = "",
-    var success: Int = PersonalityKey.MOTIVATED.resolve(),
-    var failure: Int = PersonalityKey.LAZY.resolve(),
+    var completionKey: Int = PersonalityKey.DEFAULT.resolve(),
+    var completionValue: Int = 0,
 
     //These will be queried from listening apps when triggers fire.
     var useProgressBar: Boolean = false,

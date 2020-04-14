@@ -105,13 +105,14 @@ abstract class MainDatabase : RoomDatabase() {
                 )
 
                 createConstraint(db, "SUNNY", triggerId)
-                //T    createConstraint(db, "TEMPERATURE", triggerId, 18, 30)
+                createConstraint(db, "TEMPERATURE", triggerId, 18, 30)
                 triggerId++
                 //endregion
 
                 //region Weekly steps summary
                 createConstraint(db, "TIME", triggerId, 71800, 72359)
-                //createConstraint(db, "WEEK_COMPLETION",triggerId, 1,100000)
+                //TODO check effects of re-enabling:
+                // createConstraint(db, "WEEK_COMPLETION",triggerId, 1,100000)
                 triggerId++
                 //endregion
 
@@ -125,7 +126,7 @@ abstract class MainDatabase : RoomDatabase() {
                 triggerId++
                 //endregion
 
-                //region Adjusting steps notification
+                //region Adjusting goal notification
                 createConstraint(db, "DAY_COMPLETION", triggerId, 100, 1000000)
                 createConstraint(db, "NEXT_GOAL_COMPLETION", triggerId, 30, 10000000)
                 triggerId++
