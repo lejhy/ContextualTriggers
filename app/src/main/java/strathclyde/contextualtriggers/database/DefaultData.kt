@@ -172,20 +172,18 @@ class DefaultData {
                     actionKeys = "",
                     progressContentUri = "",
                     actionContentUri = ""
-                ),
-                Trigger(
-                    title = "Hour",
-                    content = "Hour changed",
+                ), Trigger(
+                    title = "Morning",
+                    content = "Is morning",
                     iconKey = "NOTIFICATION_IMPORTANT",
                     active = true,
                     useProgressBar = false,
                     actionKeys = "",
                     progressContentUri = "",
                     actionContentUri = ""
-                ),
-                Trigger(
-                    title = "Minute",
-                    content = "Minute changed",
+                ), Trigger(
+                    title = "Not Evening",
+                    content = "Is not evening",
                     iconKey = "NOTIFICATION_IMPORTANT",
                     active = true,
                     useProgressBar = false,

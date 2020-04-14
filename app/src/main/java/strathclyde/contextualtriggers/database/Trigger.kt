@@ -15,6 +15,8 @@ data class Trigger(
     var altContent: String = "",
     var success: Int = PersonalityKey.MOTIVATED.resolve(),
     var failure: Int = PersonalityKey.LAZY.resolve(),
+
+    //These will be queried from listening apps when triggers fire.
     var useProgressBar: Boolean = false,
     var actionKeys: String = "",        // delimiter = ','
     var progressContentUri: String,

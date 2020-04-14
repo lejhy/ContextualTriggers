@@ -11,11 +11,9 @@ import java.time.LocalDateTime
 
 /**
  *
-Checks for minute, hour and day changes. Broadcasts all 3 together in format DSM
+Checks for minute, hour and day changes. Broadcasts all 3 together in format DHHMM
 
-d: if day changed, d in 1..7 where d is ordinal for DayOfWeek + 1 (i.e. monday=1,tuesday=2), else 0
-h: if hour changes, 1 else 0
-m: if minute changed, 1 else 0 **/
+ **/
 class TimeContext(
     private val application: Application
 ) : Context() {
@@ -44,20 +42,16 @@ class TimeContext(
         val oldTime = currentTime
         currentTime = newTime
 
-        var updateValue: Int
+        var updateValue: Int = currentTime.dayOfWeek.ordinal + 1
+        updateValue = updateValue * 100 + currentTime.hour
+        updateValue = updateValue * 100 + currentTime.minute
 
-        updateValue = if (currentTime.dayOfWeek == oldTime.dayOfWeek) 0 else currentTime.dayOfWeek.ordinal+1
-        updateValue = updateValue * 10 + if (currentTime.hour == oldTime.hour) 0 else 1
-        updateValue = updateValue * 10 + if (currentTime.minute == oldTime.minute) 0 else 1
+        Log.d(
+            "TimeBroadcast",
+            "Change of time. updateValue: $updateValue,  oldTime: $oldTime, newTime: $newTime"
+        )
+        update(updateValue)
 
-
-        if (updateValue > 0) {
-            Log.d(
-                "TimeBroadcast",
-                "Change of time. updateValue: $updateValue,  oldTime: $oldTime, newTime: $newTime"
-            )
-            update(updateValue)
-        }
     }
 
 
