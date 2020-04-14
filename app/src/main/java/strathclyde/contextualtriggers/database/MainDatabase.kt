@@ -53,43 +53,55 @@ abstract class MainDatabase : RoomDatabase() {
             override fun onCreate(db: SupportSQLiteDatabase) {
                 super.onCreate(db)
                 var triggerId = 1
-                createConstraint(db, "IN_VEHICLE", triggerId++)
-                createConstraint(db, "ON_BICYCLE", triggerId++)
-                createConstraint(db, "ON_FOOT", triggerId++)
-                createConstraint(db, "RUNNING", triggerId++)
-                createConstraint(db, "STILL", triggerId++)
-                createConstraint(db, "WALKING", triggerId++)
-                createConstraint(db, "SUNNY", triggerId++)
-                createConstraint(db, "HAZE", triggerId++)
-                createConstraint(db, "RAIN", triggerId++)
-                createConstraint(db, "TEMPERATURE", triggerId++, 0, 20)
-                createConstraint(db, "BATTERY_LEVEL", triggerId++, 80, 100)
-                createConstraint(db, "HEADPHONES", triggerId++)
+                // TESTING TRIGGERS
+//                createConstraint(db, "IN_VEHICLE", triggerId++)
+//                createConstraint(db, "ON_BICYCLE", triggerId++)
+//                createConstraint(db, "ON_FOOT", triggerId++)
+//                createConstraint(db, "RUNNING", triggerId++)
+//                createConstraint(db, "WALKING", triggerId++)
+//                createConstraint(db, "HAZE", triggerId++)
+//                createConstraint(db, "RAIN", triggerId++)
+//                createConstraint(db, "BATTERY_LEVEL", triggerId++, 80, 100)
+//                createConstraint(db, "HEADPHONES", triggerId++)
+//                //day
+//                for (day in (1..7))
+//                    createConstraint(db, "TIME", triggerId, day * 10000 + 2359, day * 10000 + 2359)
+//                triggerId++
+//                createConstraint(db, "WIND_SPEED", triggerId++, 0, 10)
+//                createConstraint(db, "CLOUDS", triggerId++, 0, 20)
+//
 
-                //day
-                for (day in (1..7))
-                    createConstraint(db, "TIME", triggerId, day * 10000 + 2359, day * 10000 + 2359)
-                triggerId++
-
-                //weekend
-                createConstraint(db, "TIME", triggerId++, 60000, 72359) //Is weekend
-
-                //morning(07;00 -> 11:59)
+                // Actual Triggers
+                // TRIGGER ONE
+                createConstraint(db, "TIME", triggerId++, 60000, 72359)// weekend
                 for (day in (1..7))
                     createConstraint(db, "TIME", triggerId, day * 10000 + 700, day * 10000 + 1159)
-                triggerId++
+                triggerId++ //morning
+                createConstraint(db, "AT_HOME", triggerId++, 1, 1)
+                createConstraint(db, "STILL", triggerId++)
+                createConstraint(db, "SUNNY", triggerId++)
+                createConstraint(db, "TEMPERATURE", triggerId++, 18, 30)
 
-                // not evening (07:00 ->18:59)
+
+                // TRIGGER TWO
+                createConstraint(db, "HEADPHONES", triggerId++)
+                createConstraint(db, "STILL", triggerId++)
+                createConstraint(db, "SUNNY", triggerId++)
                 for (day in (1..7))
                     createConstraint(db, "TIME", triggerId, day * 10000 + 700, day * 10000 + 1859)
-                triggerId++
+                triggerId++ // not evening
+                createConstraint(db, "SUNNY", triggerId++)
+                createConstraint(db, "TEMPERATURE", triggerId++, 18, 30)
 
-                createConstraint(db, "STEPS", triggerId++, 99, 17)
+
+                //TRIGGER THREE
+                createConstraint(db, "TIME", triggerId++, 72100, 72359)
+
+                //TRIGGER FOUR
+                createConstraint(db, "STEPS", triggerId++, 50, 50)
                 createConstraint(db, "STEPS", triggerId++, 100, 100)
-                createConstraint(db, "WIND_SPEED", triggerId++, 0, 10)
-                createConstraint(db, "CLOUDS", triggerId++, 0, 20)
-                createConstraint(db, "AT_HOME", triggerId++, 1, 1)
 
+                //TRIGGER FIVE
             }
         }
     }
