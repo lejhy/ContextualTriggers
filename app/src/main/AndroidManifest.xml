@@ -30,6 +30,10 @@
                 android:name=".context.steps.StepsDetector"
                 android:exported="false"/>
 
+        <service
+                android:name=".broadcasters.HistoryJobService"
+                android:exported="true"
+                android:permission="android.permission.BIND_JOB_SERVICE" />
         <service android:name=".broadcasters.WeatherJobService"
                 android:permission="android.permission.BIND_JOB_SERVICE"
                 android:exported="true"/>

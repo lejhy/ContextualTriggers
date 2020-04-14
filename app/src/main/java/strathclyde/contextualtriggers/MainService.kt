@@ -16,6 +16,9 @@ import strathclyde.contextualtriggers.context.battery.BatteryLevelContext
 import strathclyde.contextualtriggers.context.headphones.HeadphonesContext
 import strathclyde.contextualtriggers.context.location.AtHouseContext
 import strathclyde.contextualtriggers.context.steps.BasicStepsContext
+import strathclyde.contextualtriggers.context.steps.DayGoalContext
+import strathclyde.contextualtriggers.context.steps.NextGoalCompletionContext
+import strathclyde.contextualtriggers.context.steps.WeekGoalContext
 import strathclyde.contextualtriggers.context.time.TimeContext
 import strathclyde.contextualtriggers.context.weather.*
 import strathclyde.contextualtriggers.database.DefaultData
@@ -47,6 +50,7 @@ class MainService : Service() {
             .setContentTitle(getString(R.string.contextualTriggers))
             .setContentText(getString(R.string.ContextualTriggersAreNowRunning))
             .setContentIntent(pendingIntent)
+            .setGroup("Contextual Triggers")
             .setSmallIcon(R.drawable.ic_notification_important_black_24dp)
             .build()
 
@@ -87,7 +91,10 @@ class MainService : Service() {
                 HeadphonesContext(application),
                 TimeContext(application),
                 BasicStepsContext(application),
-                AtHouseContext(application)
+                AtHouseContext(application),
+                WeekGoalContext(application),
+                DayGoalContext(application),
+                NextGoalCompletionContext(application)
             )
         )
     }

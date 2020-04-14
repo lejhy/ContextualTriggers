@@ -2,10 +2,31 @@ package strathclyde.contextualtriggers.context.steps
 
 import android.app.Application
 import android.net.Uri
-import java.util.*
 
 class KeepFitContentGetter(val application: Application) {
+    companion object {
+        const val KEEP_FIT_BASE_URI = "strathclyde.emb15144.stepcounter"
+        const val KEEP_FIT_BASE_PROVIDER_URI = "$KEEP_FIT_BASE_URI.provider"
+        val TODAY_PROGRESS_PROVIDER = Uri.Builder()
+            .scheme("content")
+            .authority(KEEP_FIT_BASE_PROVIDER_URI)
+            .path("today")
+            .build()
+        val GOAL_PROGRESS_PROVIDER = Uri.Builder()
+            .scheme("content")
+            .authority(KEEP_FIT_BASE_PROVIDER_URI)
+            .path("next_unsatisfied_goal")
+            .build()
 
+        val WEEK_PROGRESS_PROVIDER = Uri.Builder()
+            .scheme("content")
+            .authority(KEEP_FIT_BASE_PROVIDER_URI)
+            .path("history")
+            .build()
+        val ACTION_BROADCAST_RECEIVER =
+            "strathclyde.emb15144.stepcounter.receiver.ActionBroadcastReceiver"
+
+    }
     class Goal(
         val name: String,
         val steps: Int
@@ -32,19 +53,19 @@ class KeepFitContentGetter(val application: Application) {
 
     private val goalsUri = Uri.Builder()
         .scheme("content")
-        .authority("strathclyde.emb15144.stepcounter.provider")
+        .authority(KEEP_FIT_BASE_PROVIDER_URI)
         .path("goals")
         .build()
 
     private val todayUri = Uri.Builder()
         .scheme("content")
-        .authority("strathclyde.emb15144.stepcounter.provider")
+        .authority(KEEP_FIT_BASE_PROVIDER_URI)
         .path("today")
         .build()
 
     private val historyUri = Uri.Builder()
         .scheme("content")
-        .authority("strathclyde.emb15144.stepcounter.provider")
+        .authority(KEEP_FIT_BASE_PROVIDER_URI)
         .path("history")
         .build()
 

@@ -52,56 +52,84 @@ abstract class MainDatabase : RoomDatabase() {
 
             override fun onCreate(db: SupportSQLiteDatabase) {
                 super.onCreate(db)
-                var triggerId = 1
-                // TESTING TRIGGERS
-//                createConstraint(db, "IN_VEHICLE", triggerId++)
-//                createConstraint(db, "ON_BICYCLE", triggerId++)
-//                createConstraint(db, "ON_FOOT", triggerId++)
-//                createConstraint(db, "RUNNING", triggerId++)
-//                createConstraint(db, "WALKING", triggerId++)
-//                createConstraint(db, "HAZE", triggerId++)
-//                createConstraint(db, "RAIN", triggerId++)
-//                createConstraint(db, "BATTERY_LEVEL", triggerId++, 80, 100)
-//                createConstraint(db, "HEADPHONES", triggerId++)
-//                //day
-//                for (day in (1..7))
-//                    createConstraint(db, "TIME", triggerId, day * 10000 + 2359, day * 10000 + 2359)
-//                triggerId++
-//                createConstraint(db, "WIND_SPEED", triggerId++, 0, 10)
-//                createConstraint(db, "CLOUDS", triggerId++, 0, 20)
-//
+                var triggerId = 0
 
-                // Actual Triggers
-                // TRIGGER ONE
-                createConstraint(db, "TIME", triggerId++, 60000, 72359)// weekend
-                for (day in (1..7))
-                    createConstraint(db, "TIME", triggerId, day * 10000 + 700, day * 10000 + 1159)
-                triggerId++ //morning
-                createConstraint(db, "AT_HOME", triggerId++, 1, 1)
-                createConstraint(db, "STILL", triggerId++)
-                createConstraint(db, "SUNNY", triggerId++)
-                createConstraint(db, "TEMPERATURE", triggerId++, 18, 30)
-
-
-                // TRIGGER TWO
+                //region Testing Triggers
+                /**
+                createConstraint(db, "IN_VEHICLE", triggerId++)
+                createConstraint(db, "ON_BICYCLE", triggerId++)
+                createConstraint(db, "ON_FOOT", triggerId++)
+                createConstraint(db, "RUNNING", triggerId++)
+                createConstraint(db, "WALKING", triggerId++)
+                createConstraint(db, "HAZE", triggerId++)
+                createConstraint(db, "RAIN", triggerId++)
+                createConstraint(db, "BATTERY_LEVEL", triggerId++, 80, 100)
                 createConstraint(db, "HEADPHONES", triggerId++)
-                createConstraint(db, "STILL", triggerId++)
-                createConstraint(db, "SUNNY", triggerId++)
+                //day
                 for (day in (1..7))
-                    createConstraint(db, "TIME", triggerId, day * 10000 + 700, day * 10000 + 1859)
-                triggerId++ // not evening
-                createConstraint(db, "SUNNY", triggerId++)
-                createConstraint(db, "TEMPERATURE", triggerId++, 18, 30)
+                createConstraint(db, "TIME", triggerId, day * 10000 + 2359, day * 10000 + 2359)
+                triggerId++
+                createConstraint(db, "WIND_SPEED", triggerId++, 0, 10)
+                createConstraint(db, "CLOUDS", triggerId++, 0, 20)
 
+                 **/
+                //endregion
 
-                //TRIGGER THREE
-                createConstraint(db, "TIME", triggerId++, 72100, 72359)
+                //region Morning Weekend Walk
+                //createConstraint(db, "TIME", triggerId, 60000, 72359)// weekend
+                for (day in (6..7)) createConstraint(
+                    db,
+                    "TIME",
+                    triggerId,
+                    day * 10000 + 700,
+                    day * 10000 + 1159
+                )
+                triggerId++
+                createConstraint(db, "AT_HOME", triggerId, 1, 1)
+                createConstraint(db, "STILL", triggerId)
+                createConstraint(db, "SUNNY", triggerId)
+                createConstraint(db, "TEMPERATURE", triggerId, 18, 30)
+                triggerId++
+                //endregion
 
-                //TRIGGER FOUR
-                createConstraint(db, "STEPS", triggerId++, 50, 50)
-                createConstraint(db, "STEPS", triggerId++, 100, 100)
+                // region Walk with headphones in nice weather
+                createConstraint(db, "HEADPHONES", triggerId)
+                createConstraint(db, "STILL", triggerId)
+                createConstraint(db, "SUNNY", triggerId)
+                for (day in (1..7)) createConstraint(
+                    db,
+                    "TIME",
+                    triggerId,
+                    day * 10000 + 700,
+                    day * 10000 + 1859
+                )
 
-                //TRIGGER FIVE
+                createConstraint(db, "SUNNY", triggerId)
+                //T    createConstraint(db, "TEMPERATURE", triggerId, 18, 30)
+                triggerId++
+                //endregion
+
+                //region Weekly steps summary
+                createConstraint(db, "TIME", triggerId, 71800, 72359)
+                //createConstraint(db, "WEEK_COMPLETION",triggerId, 1,100000)
+                triggerId++
+                //endregion
+
+                //region 50% daily goal completion
+                createConstraint(db, "DAY_COMPLETION", triggerId, 50, 99)
+                triggerId++
+                //endregion
+
+                //region 100% daily goal completion
+                createConstraint(db, "DAY_COMPLETION", triggerId, 100, 100)
+                triggerId++
+                //endregion
+
+                //region Adjusting steps notification
+                createConstraint(db, "DAY_COMPLETION", triggerId, 100, 1000000)
+                createConstraint(db, "NEXT_GOAL_COMPLETION", triggerId, 30, 10000000)
+                triggerId++
+                //endregion
             }
         }
     }
