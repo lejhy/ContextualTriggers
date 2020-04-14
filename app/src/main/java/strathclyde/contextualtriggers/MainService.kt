@@ -9,7 +9,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import kotlinx.coroutines.*
-import strathclyde.contextualtriggers.userPersonality.UserPersonalityDecider
+import strathclyde.contextualtriggers.UserPersonality.UserPersonalityDecider
 import strathclyde.contextualtriggers.context.Context
 import strathclyde.contextualtriggers.context.activity.*
 import strathclyde.contextualtriggers.context.battery.BatteryLevelContext

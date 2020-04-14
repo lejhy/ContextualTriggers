@@ -10,10 +10,9 @@ import android.content.Intent
 import android.net.Uri
 import android.util.Log
 import strathclyde.contextualtriggers.R
-import strathclyde.contextualtriggers.userPersonality.UserPersonalityDecider
+import strathclyde.contextualtriggers.UserPersonality.UserPersonalityDecider
 import strathclyde.contextualtriggers.context.Context
 import strathclyde.contextualtriggers.database.TriggerWithContextConstraints
-import strathclyde.contextualtriggers.database.UserPersonalityData
 import strathclyde.contextualtriggers.enums.ContextKey
 import strathclyde.contextualtriggers.enums.IconKey
 import strathclyde.contextualtriggers.enums.PersonalityKey

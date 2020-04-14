@@ -1,4 +1,4 @@
-package strathclyde.contextualtriggers.userPersonality
+package strathclyde.contextualtriggers.UserPersonality
 
 import android.content.Context
 import android.os.AsyncTask
