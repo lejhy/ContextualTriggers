@@ -13,9 +13,13 @@ data class Trigger(
     var content: String = "",
     var iconKey: String = "",
     var active: Boolean = false,
+
+    //User Personality
     var altContent: String = "",
     var completionKey: Int = PersonalityKey.DEFAULT.resolve(),
     var completionValue: Int = 0,
+
+    //These will be queried from listening apps when triggers fire.
     var useProgressBar: Boolean = false,
     var actionKeys: String = "",        // delimiter = ','
     var progressContentUri: String = "",

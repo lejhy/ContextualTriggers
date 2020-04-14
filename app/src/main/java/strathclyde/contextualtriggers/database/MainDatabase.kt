@@ -1,12 +1,10 @@
 package strathclyde.contextualtriggers.database
 
 import android.content.Context
-import android.util.Log
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
-import java.util.*
 
 @Database(
     entities = [Trigger::class, ContextConstraint::class, LocationEntry::class, UserPersonalityData::class],
@@ -18,6 +16,7 @@ abstract class MainDatabase : RoomDatabase() {
     abstract val triggerWithContextConstraintsDao: TriggerWithContextConstraintsDao
     abstract val userPersonalityDataDao: UserPersonalityDataDao
     abstract val locationEntryDao: LocationEntryDao
+
     companion object {
         @Volatile
         private var INSTANCE: MainDatabase? = null
@@ -41,43 +40,68 @@ abstract class MainDatabase : RoomDatabase() {
         }
 
         private val CALLBACK = object : RoomDatabase.Callback() {
+            fun createConstraint(
+                db: SupportSQLiteDatabase,
+                context: String,
+                triggerId: Int,
+                atLeast: Int = 1,
+                atMost: Int = 1
+            ) {
+                db.execSQL("INSERT INTO 'ContextConstraint' VALUES (NULL, '$context', $atLeast, $atMost, $triggerId)")
+            }
+
             override fun onCreate(db: SupportSQLiteDatabase) {
                 super.onCreate(db)
-                db.execSQL("INSERT INTO 'ContextConstraint' VALUES (NULL, 'IN_VEHICLE', 1, 1, 1)")
-                db.execSQL("INSERT INTO 'ContextConstraint' VALUES (NULL, 'ON_BICYCLE', 1, 1, 2)")
-                db.execSQL("INSERT INTO 'ContextConstraint' VALUES (NULL, 'ON_FOOT', 1, 1, 3)")
-                db.execSQL("INSERT INTO 'ContextConstraint' VALUES (NULL, 'RUNNING', 1, 1, 4)")
-                db.execSQL("INSERT INTO 'ContextConstraint' VALUES (NULL, 'STILL', 1, 1, 5)")
-                db.execSQL("INSERT INTO 'ContextConstraint' VALUES (NULL, 'WALKING', 1, 1, 6)")
-                db.execSQL("INSERT INTO 'ContextConstraint' VALUES (NULL, 'SUNNY', 1, 1, 7)")
-                db.execSQL("INSERT INTO 'ContextConstraint' VALUES (NULL, 'HAZE', 1, 1, 8)")
-                db.execSQL("INSERT INTO 'ContextConstraint' VALUES (NULL, 'RAIN', 1, 1, 9)")
-                db.execSQL("INSERT INTO 'ContextConstraint' VALUES (NULL, 'TEMPERATURE', 0, 20, 10)")
-                db.execSQL("INSERT INTO 'ContextConstraint' VALUES (NULL, 'BATTERY_LEVEL', 80, 100, 11)")
-                db.execSQL("INSERT INTO 'ContextConstraint' VALUES (NULL, 'HEADPHONES', 1, 1, 12)")
-                db.execSQL("Insert Into 'ContextConstraint' VALUES (NULL, 'TIME',${100},${711},13)")
-                db.execSQL("Insert Into 'ContextConstraint' VALUES (NULL, 'TIME',${600},${711},14)")
-                db.execSQL("INSERT INTO 'ContextConstraint' VALUES(NULL, 'TIME',10,11,15)")
-                db.execSQL("INSERT INTO 'ContextConstraint' VALUES(NULL, 'TIME',110,111,15)")
-                db.execSQL("INSERT INTO 'ContextConstraint' VALUES(NULL, 'TIME',210,211,15)")
-                db.execSQL("INSERT INTO 'ContextConstraint' VALUES(NULL, 'TIME',310,311,15)")
-                db.execSQL("INSERT INTO 'ContextConstraint' VALUES(NULL, 'TIME',410,411,15)")
-                db.execSQL("INSERT INTO 'ContextConstraint' VALUES(NULL, 'TIME',510,511,15)")
-                db.execSQL("INSERT INTO 'ContextConstraint' VALUES(NULL, 'TIME',610,611,15)")
-                db.execSQL("INSERT INTO 'ContextConstraint' VALUES(NULL, 'TIME',710,711,15)")
-                db.execSQL("INSERT INTO 'ContextConstraint' VALUES(NULL, 'TIME',10,11,16)")
-                db.execSQL("INSERT INTO 'ContextConstraint' VALUES(NULL, 'TIME',110,111,16)")
-                db.execSQL("INSERT INTO 'ContextConstraint' VALUES(NULL, 'TIME',210,211,16)")
-                db.execSQL("INSERT INTO 'ContextConstraint' VALUES(NULL, 'TIME',310,311,16)")
-                db.execSQL("INSERT INTO 'ContextConstraint' VALUES(NULL, 'TIME',410,411,16)")
-                db.execSQL("INSERT INTO 'ContextConstraint' VALUES(NULL, 'TIME',510,511,16)")
-                db.execSQL("INSERT INTO 'ContextConstraint' VALUES(NULL, 'TIME',610,611,16)")
-                db.execSQL("INSERT INTO 'ContextConstraint' VALUES(NULL, 'TIME',710,711,16)")
-                db.execSQL("INSERT INTO 'ContextConstraint' VALUES (NULL, 'STEPS', 50, 99, 17)")
-                db.execSQL("INSERT INTO 'ContextConstraint' VALUES (NULL, 'STEPS', 100, 100, 18)")
-                db.execSQL("INSERT INTO 'ContextConstraint' VALUES (NULL, 'WIND_SPEED', 0, 10, 19)")
-                db.execSQL("INSERT INTO 'ContextConstraint' VALUES (NULL, 'CLOUDS', 0, 20, 20)")
-                db.execSQL("INSERT INTO 'ContextConstraint' VALUES (NULL, 'AT_HOME', 1, 1, 21)")
+                var triggerId = 1
+                // TESTING TRIGGERS
+//                createConstraint(db, "IN_VEHICLE", triggerId++)
+//                createConstraint(db, "ON_BICYCLE", triggerId++)
+//                createConstraint(db, "ON_FOOT", triggerId++)
+//                createConstraint(db, "RUNNING", triggerId++)
+//                createConstraint(db, "WALKING", triggerId++)
+//                createConstraint(db, "HAZE", triggerId++)
+//                createConstraint(db, "RAIN", triggerId++)
+//                createConstraint(db, "BATTERY_LEVEL", triggerId++, 80, 100)
+//                createConstraint(db, "HEADPHONES", triggerId++)
+//                //day
+//                for (day in (1..7))
+//                    createConstraint(db, "TIME", triggerId, day * 10000 + 2359, day * 10000 + 2359)
+//                triggerId++
+//                createConstraint(db, "WIND_SPEED", triggerId++, 0, 10)
+//                createConstraint(db, "CLOUDS", triggerId++, 0, 20)
+//
+
+                // Actual Triggers
+                // TRIGGER ONE
+                createConstraint(db, "TIME", triggerId++, 60000, 72359)// weekend
+                for (day in (1..7))
+                    createConstraint(db, "TIME", triggerId, day * 10000 + 700, day * 10000 + 1159)
+                triggerId++ //morning
+                createConstraint(db, "AT_HOME", triggerId++, 1, 1)
+                createConstraint(db, "STILL", triggerId++)
+                createConstraint(db, "SUNNY", triggerId++)
+                createConstraint(db, "TEMPERATURE", triggerId++, 18, 30)
+
+
+                // TRIGGER TWO
+                createConstraint(db, "HEADPHONES", triggerId++)
+                createConstraint(db, "STILL", triggerId++)
+                createConstraint(db, "SUNNY", triggerId++)
+                for (day in (1..7))
+                    createConstraint(db, "TIME", triggerId, day * 10000 + 700, day * 10000 + 1859)
+                triggerId++ // not evening
+                createConstraint(db, "SUNNY", triggerId++)
+                createConstraint(db, "TEMPERATURE", triggerId++, 18, 30)
+
+
+                //TRIGGER THREE
+                createConstraint(db, "TIME", triggerId++, 72100, 72359)
+
+                //TRIGGER FOUR
+                createConstraint(db, "STEPS", triggerId++, 50, 50)
+                createConstraint(db, "STEPS", triggerId++, 100, 100)
+
+                //TRIGGER FIVE
             }
         }
     }
