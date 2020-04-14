@@ -97,18 +97,20 @@ class Trigger(
                 notificiationBuilder.addAction(it)
             }
         }
-        val notification: Notification =
-            if (altContent == "" || with(UserPersonalityDecider) {
-                    getDecider(application.applicationContext)
-                        .isPositivePersonality()
+        if(content != "") {
+            val notification: Notification =
+                if (altContent == "" || with(UserPersonalityDecider) {
+                        getDecider(application.applicationContext)
+                            .isPositivePersonality()
+                    }
+                ) {
+                    createDefaultNotification(notificiationBuilder)
+                } else {
+                    createAltNotification(notificiationBuilder)
                 }
-            ) {
-                createDefaultNotification(notificiationBuilder)
-            } else {
-                createAltNotification(notificiationBuilder)
-            }
 
-        notificationManager.notify(R.integer.walkingNotificationId, notification)
+            notificationManager.notify(R.integer.walkingNotificationId, notification)
+        }
     }
 
 
