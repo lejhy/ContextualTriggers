@@ -1,4 +1,4 @@
-package strathclyde.contextualtriggers.UserPersonality
+package strathclyde.contextualtriggers.userPersonality
 
 import android.content.Context
 import android.os.AsyncTask
@@ -11,33 +11,31 @@ import strathclyde.contextualtriggers.enums.PersonalityKey
 class UserPersonalityDecider(context: Context) {
     val userPersonalityDataDao: UserPersonalityDataDao =
         MainDatabase.getInstance(context).userPersonalityDataDao
-    val dbSave: DBSave = DBSave()
-    val dbLoad: DBLoad = DBLoad()
 
-    var emotions: List<UserPersonalityData>? = null
+    var emotions: MutableList<UserPersonalityData>? = null
 
     init {
-        dbLoad.execute(this)
+        DBLoad().execute(this)
     }
 
     fun isPositivePersonality(): Boolean {
         val emotional = emotions
         Log.d("PERSONALITY", "Testing: " + (emotional == null).toString())
-        if (emotional != null) {
-            val motivated = emotional.first { e -> e.key == PersonalityKey.MOTIVATED.resolve() }
-            val lazy = emotional.first { e -> e.key == PersonalityKey.LAZY.resolve() }
-            Log.d("PERSONALITY", "Motivation: " + motivated.value.toString() + " Lazy: " + lazy.value.toString())
-            return motivated.value > lazy.value
-        }
+        if (emotional != null && emotional.isNotEmpty())
+            return emotional.first { e -> e.key == PersonalityKey.MOTIVATED.resolve() }.value >= 0
         return true
     }
 
     fun updatePersonality(key: Int, value: Int) {
         val emotional = emotions
         if (emotional != null) {
-            val personality = emotional.first { e -> e.key == key }
-            personality.value = value
-            dbSave.execute(this)
+            try {
+                val personality = emotional.first { e -> e.key == key }
+                personality.value = value
+            } catch (e: NoSuchElementException) {
+                emotional.add(UserPersonalityData(key, value))
+            }
+            DBSave().execute(this)
         }
 
     }
@@ -75,9 +73,7 @@ class UserPersonalityDecider(context: Context) {
     class DBLoad : AsyncTask<UserPersonalityDecider, Void, Void?>() {
         override fun doInBackground(vararg p0: UserPersonalityDecider?): Void? {
             val master = p0.first()
-
-            if (master != null)
-                master.emotions = master.userPersonalityDataDao.getAll()
+            if (master != null) master.emotions = master.userPersonalityDataDao.getAll().toMutableList()
             Log.d("PERSONALITY", "user-personality data loaded${master?.emotions}")
             return null
         }

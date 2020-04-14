@@ -10,7 +10,7 @@ import android.content.Intent
 import android.net.Uri
 import android.util.Log
 import strathclyde.contextualtriggers.R
-import strathclyde.contextualtriggers.UserPersonality.UserPersonalityDecider
+import strathclyde.contextualtriggers.userPersonality.UserPersonalityDecider
 import strathclyde.contextualtriggers.context.Context
 import strathclyde.contextualtriggers.database.TriggerWithContextConstraints
 import strathclyde.contextualtriggers.enums.ContextKey
@@ -30,8 +30,8 @@ class Trigger(
     private val altContent = triggerWithContextConstraints.trigger.altContent
     private val iconKey = IconKey.valueOf(triggerWithContextConstraints.trigger.iconKey)
     private val contextConstraintsMap: MutableMap<Context, MutableList<Constraint>> = mutableMapOf()
-    private val success = triggerWithContextConstraints.trigger.success
-    private val failure = triggerWithContextConstraints.trigger.failure
+    private val completionKey = triggerWithContextConstraints.trigger.completionKey
+    private val completionValue = triggerWithContextConstraints.trigger.completionValue
     private val useProgressBar = triggerWithContextConstraints.trigger.useProgressBar
     private val actionKeys: List<String> =
         triggerWithContextConstraints.trigger.actionKeys.split(",")
@@ -78,6 +78,7 @@ class Trigger(
             if (!constraints.map { constraint -> constraint.state }.reduce { acc, state -> acc || state }) return
         }
         Log.i("Trigger $title", "notification")
+        UserPersonalityDecider.getDecider(application.applicationContext).updatePersonality(completionKey, completionValue)
         createNotification()
     }
 

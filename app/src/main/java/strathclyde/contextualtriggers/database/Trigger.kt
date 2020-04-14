@@ -14,8 +14,8 @@ data class Trigger(
     var iconKey: String = "",
     var active: Boolean = false,
     var altContent: String = "",
-    var success: Int = PersonalityKey.DEFAULT.resolve(),
-    var failure: Int = PersonalityKey.DEFAULT.resolve(),
+    var completionKey: Int = PersonalityKey.DEFAULT.resolve(),
+    var completionValue: Int = 0,
     var useProgressBar: Boolean = false,
     var actionKeys: String = "",        // delimiter = ','
     var progressContentUri: String = "",
