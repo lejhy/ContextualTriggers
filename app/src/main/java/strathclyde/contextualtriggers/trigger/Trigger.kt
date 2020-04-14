@@ -13,8 +13,10 @@ import strathclyde.contextualtriggers.R
 import strathclyde.contextualtriggers.userPersonality.UserPersonalityDecider
 import strathclyde.contextualtriggers.context.Context
 import strathclyde.contextualtriggers.database.TriggerWithContextConstraints
+import strathclyde.contextualtriggers.database.UserPersonalityData
 import strathclyde.contextualtriggers.enums.ContextKey
 import strathclyde.contextualtriggers.enums.IconKey
+import strathclyde.contextualtriggers.enums.PersonalityKey
 import kotlin.collections.component1
 import kotlin.collections.component2
 import kotlin.collections.set
@@ -78,7 +80,8 @@ class Trigger(
             if (!constraints.map { constraint -> constraint.state }.reduce { acc, state -> acc || state }) return
         }
         Log.i("Trigger $title", "notification")
-        UserPersonalityDecider.getDecider(application.applicationContext).updatePersonality(completionKey, completionValue)
+        if (completionKey != PersonalityKey.DEFAULT.resolve() && completionValue != 0)
+            UserPersonalityDecider.getDecider(application.applicationContext).updatePersonality(completionKey, completionValue)
         createNotification()
     }
 
