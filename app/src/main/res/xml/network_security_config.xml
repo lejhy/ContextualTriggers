@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+    <base-config cleartextTrafficPermitted="true"/> // Only necessary for WeatherSlack API free plan (in real app we would pay for the plan and use https requests)
+</network-security-config>
