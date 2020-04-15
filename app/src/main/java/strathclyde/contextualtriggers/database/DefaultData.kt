@@ -287,7 +287,7 @@ class DefaultData {
                     iconKey = defaultIconImage,
                     active = true,
                     useProgressBar = true,
-                    actionKeys = "",
+                    actionKeys = "view",
                     progressContentUri = TODAY_PROGRESS_PROVIDER.toString(),
                     actionContentUri = KeepFitContentGetter.ACTION_BROADCAST_RECEIVER
                 ),
@@ -298,7 +298,7 @@ class DefaultData {
                     iconKey = defaultIconImage,
                     active = true,
                     useProgressBar = true,
-                    actionKeys = "",
+                    actionKeys = "view",
                     progressContentUri = TODAY_PROGRESS_PROVIDER.toString(),
                     actionContentUri = KeepFitContentGetter.ACTION_BROADCAST_RECEIVER
                 ),
@@ -309,9 +309,9 @@ class DefaultData {
                     iconKey = defaultIconImage,
                     active = true,
                     useProgressBar = false,
-                    actionKeys = "Change Goal",
-                    progressContentUri = "",
-                    actionContentUri = KeepFitContentGetter.KEEP_FIT_BASE_URI
+                    actionKeys = "change",
+                    progressContentUri = TODAY_PROGRESS_PROVIDER.toString(),
+                    actionContentUri = KeepFitContentGetter.ACTION_BROADCAST_RECEIVER
                 )
 
             )
