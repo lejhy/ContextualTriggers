@@ -113,7 +113,7 @@ class Trigger(
         notificationManager.createNotificationChannel(
             NotificationChannel(
                 owner,
-                title,
+                owner,
                 NotificationManager.IMPORTANCE_HIGH
             )
         )
@@ -139,16 +139,13 @@ class Trigger(
 
     private fun requestProgressBarValues(progressContentUri: String): Triple<Int, Int, Boolean> {
         var result = Triple(0, 100, true)
+
         val cursor =
             application.contentResolver.query(Uri.parse(progressContentUri), null, null, null, null)
                 ?: return result
         var c = cursor.count
 
 
-        if (c > 7) {
-            cursor.moveToPosition(c - 7)
-            c = 7
-        }
         cursor.apply {
             moveToFirst()
 
@@ -161,25 +158,22 @@ class Trigger(
                     "max"
                 )
 
-            if (columnNames.indexOf("steps") == -1) {
-                var steps = getInt(stepsColumn)
-                var target = getInt(targetColumn)
-                while (--c > 0) {
-                    moveToNext()
-                    steps += getInt(stepsColumn)
-                    target += getInt(targetColumn)
-                }
-                result = Triple(steps, target, false)
+            var steps = getInt(stepsColumn)
+            var target = getInt(targetColumn)
+
+            if (c == 1) {
+                Triple(steps, target, false)
             } else {
-                var steps = if (getInt(stepsColumn) >= getInt(targetColumn)) 1 else 0
+                var steps = if (steps > target) 1 else 0
                 var target = 1
                 while (--c > 0) {
                     moveToNext()
                     steps += if (getInt(stepsColumn) >= getInt(targetColumn)) 1 else 0
                     target += 1
                 }
-                result = Triple(steps, target, false)
             }
+            result = Triple(steps, target, false)
+
             close()
         }
         return result
