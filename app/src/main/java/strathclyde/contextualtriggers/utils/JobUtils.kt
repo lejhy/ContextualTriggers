@@ -6,14 +6,11 @@ import android.app.job.JobInfo
 import android.app.job.JobScheduler
 import android.content.ComponentName
 import android.content.Context
-import android.content.pm.PackageManager
-import android.location.Location
-import android.location.LocationManager
 import android.os.PersistableBundle
 import android.util.Log
-import androidx.core.content.ContextCompat
 import strathclyde.contextualtriggers.broadcasters.HistoryJobService
 import strathclyde.contextualtriggers.broadcasters.WeatherJobService
+import strathclyde.contextualtriggers.utils.LocationUtils.Companion.getLocation
 
 class JobUtils {
     companion object {
@@ -64,22 +61,6 @@ class JobUtils {
                     Log.d("Weather Job not scheduled", "FAIL")
                 }
             }
-        }
-
-        private fun getLocation(context: Context): Location? {
-            if (ContextCompat.checkSelfPermission(
-                    context, android.Manifest.permission.ACCESS_FINE_LOCATION
-                ) == PackageManager.PERMISSION_GRANTED &&
-                ContextCompat.checkSelfPermission(
-                    context, android.Manifest.permission.ACCESS_COARSE_LOCATION
-                ) == PackageManager.PERMISSION_GRANTED
-            ) {
-                val lm =
-                    context.getSystemService(Context.LOCATION_SERVICE) as LocationManager?
-                return lm?.getLastKnownLocation(LocationManager.GPS_PROVIDER)
-            }
-            Log.d("Location Null", "null")
-            return null
         }
 
         private fun isJobServiceOn(context: Context): Boolean {
