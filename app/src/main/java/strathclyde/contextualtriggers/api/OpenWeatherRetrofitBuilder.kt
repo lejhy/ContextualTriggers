@@ -3,7 +3,7 @@ package strathclyde.contextualtriggers.api
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-object RetrofitBuilder {
+object OpenWeatherRetrofitBuilder {
     const val BASE_URL = "https://api.openweathermap.org/"
 
     private val retrofitBuilder: Retrofit.Builder by lazy {

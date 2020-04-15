@@ -131,6 +131,12 @@ abstract class MainDatabase : RoomDatabase() {
                 createConstraint(db, "NEXT_GOAL_COMPLETION", triggerId, 30, 10000000)
                 triggerId++
                 //endregion
+//                //NIK TEST CONSTRAINTS
+//                createConstraint(db, "CLOUDS", triggerId, 0, 100)
+//                createConstraint(db, "TEMPERATURE", triggerId, 0, 100)
+//                createConstraint(db, "RAIN", triggerId, 0, 100)
+//                createConstraint(db, "WIND_SPEED", triggerId, 0, 100)
+//                triggerId++
             }
         }
     }
