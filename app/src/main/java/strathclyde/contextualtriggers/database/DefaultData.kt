@@ -313,18 +313,6 @@ class DefaultData {
                     progressContentUri = TODAY_PROGRESS_PROVIDER.toString(),
                     actionContentUri = KeepFitContentGetter.ACTION_BROADCAST_RECEIVER
                 )
-//                //NIK TRIGGERS TEST
-//                Trigger(
-//                    owner = "strathclyde.contextualtriggers",
-//                    title = "Testing contexts",
-//                    content = "All were true",
-//                    iconKey = defaultIconImage,
-//                    active = true,
-//                    useProgressBar = false,
-//                    actionKeys = "",
-//                    progressContentUri = "",
-//                    actionContentUri = KeepFitContentGetter.ACTION_BROADCAST_RECEIVER
-//                )
             )
         }
 

@@ -55,7 +55,7 @@ class WeatherJobService : JobService() {
                 }
             } else {
                 Log.w("OpenWeather call not successful", "${weatherResponse.code()}")
-//                fetchWeatherStack(lat, lon) //TODO uncomment when submit - free plan allows only 1000 requests a month
+                fetchWeatherStack(lat, lon) // free plan allows only 1000 requests a month
             }
         }
     }
