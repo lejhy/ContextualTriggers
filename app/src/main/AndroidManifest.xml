@@ -19,7 +19,7 @@
 
         <meta-data
                 android:name="com.google.android.awareness.API_KEY"
-                android:value="AIzaSyDiJM-e4-eJXgTFheLT0wZ67iaV846svM4" />
+                android:value="" />
 
         <service
                 android:name=".MainService"
